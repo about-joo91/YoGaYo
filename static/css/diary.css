@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&family=Nanum+Myeongjo&family=Noto+Serif+KR&family=Sunflower&display=swap');
+
+html {
+    font-size: 62.5%;
+    font-family: 'Julius Sans One';
+}
+
+.header{
+    width: 172.8rem;
+    height: 8.9rem;
+    border: 1px solid black;
+    background-color: red;
+    margin:auto;
+}
+/* 모달 */
+.modal_background{
+    background : rgba(0, 0, 0, 0.7);
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    display: none;
+}
+.small_modal{
+    width: 30rem;
+    height: 20rem;
+    background-color: white;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5%;
+    z-index: 3;
+    
+}
+.sm_modal_buttons{
+    width: 100%;
+    height: 100%;
+    margin: 10px 0 10px 0;
+}
+.sm_mds_modal_button1{
+    /* margin-t  */
+    width: 100%;
+    height: 33.33333333333%;
+    font-size: 20px; 
+    border-bottom: 1px solid black;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: blue;
+    font-family: 'Julius Sans One';
+}
+.sm_mds_modal_button2{
+    /* margin-t  */
+    width: 100%;
+    height: 33.33333333333%;
+    font-size: 20px; 
+    /* border: 1px solid black; */
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: red;
+    font-family: 'Julius Sans One';
+}
+.sm_mds_modal_button3{
+    /* margin-t  */
+    width: 100%;
+    height: 33.33333333333%;
+    font-size: 20px; 
+    border-top: 1px solid black;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Julius Sans One';
+    
+}
+/* 다이어리 */
+.diary{
+    /* margin-top: 5rem;
+    margin-left: 17%; */
+    margin: 0 auto;
+    padding-top: 5rem;
+    width: 130.8rem;
+    height: 250.1rem;
+    background-color: f1f1f1;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    /* align-items: center; */
+}
+.dr_user_diary{
+    width: 50.2rem;
+    height: 10.8rem;
+    border: 1px solid black;
+    font-size: 40px;
+    margin: 0 auto 0 17%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.dr_user_plot{
+    margin: 4rem auto 0  auto;
+    width: 80.5rem;
+    height: 42.1rem;
+    background-color: rgb(245, 245, 245);
+}
+.mychart{
+    margin: 1rem auto;
+    height: 60%;
+}
+.dr_fighting{
+    width: 50rem;
+    height: 3rem;
+    font-size: 24px;
+    margin: 2rem auto 0 20%;
+    color: rgb(87, 3, 3);
+}
+.dr_user_posts{
+    width: 110.4rem;
+    height: 170rem;
+    background-color: ffffff;
+    margin: 4.4rem auto 0  auto;
+}
+.dr_up_posts_card{
+    width: 86.4rem;
+    height: 81.6em;
+    border: 1px solid black;
+    margin: 3rem auto 0 auto;
+}
+.dr_up_dc_data_modal{
+    width: 100%;
+    height: 7.5rem;
+    display: flex;
+    flex-direction: row;
+}
+.dr_up_cd_date{
+    width: 90%;
+    height: 7.5rem;
+    background-color:rgba(245, 245, 220, 0.5);
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba(245, 245, 220, 1);
+    /* padding-left: 3rem; */
+}
+.dr_up_cd_modal_button{
+    border-bottom: 1px solid rgba(245, 245, 220, 1);
+    width: 10%;
+    height: 100%;
+    /* border: 1px solid blue; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.dr_up_cd_post{
+    width: 100%;
+    height: 60%;
+    background-color: c4c4c4;
+}
+.dr_up_cd_pt_img{
+    width: 100%;
+    height: 100%;
+    background-image: url('https://img1.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202105/25/muscleandfitness/20210525035809240flpl.jpg');
+    background-size: cover;
+}
+.dr_up_cd_pt_act_name{
+    width: 100%;
+    height: 17%;
+    border-bottom: 1px solid black;
+    /* border: 1px solid red; */
+    font-size: 30px;
+    display: flex;
+    flex-direction: row;
+}
+.dr_up_cd_pt_an_comment{
+    width: 50%;
+    height: 100%;
+    /* border: 1px solid blue; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid black;
+}
+.dr_up_cd_pt_an_name{
+    width: 50%;
+    height: 100%;
+    /* border: 1px solid blue; */
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    color : blue;
+}
+.dr_up_cd_pt_acccheck{
+    width: 100%;
+    height: 15%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid black;
+}
+.dr_up_cd_pt_ac_acc{
+    width: 50%;
+    height: 100%;
+    /* border: 1px solid blue; */
+    border-right: 1px solid black;
+    font-size: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.dr_up_cd_pt_ac_check{
+    width: 50%;
+    height: 100%;
+    /* border: 1px solid blue; */
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.dr_up_cd_pt_comment{
+    padding-top: 5px;
+    width: 100%;
+    height: 20%;
+    /* border: 1px solid blue; */
+    font-size: 20px;
+    padding-left: 1rem;
+}

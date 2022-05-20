@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="../static/css/diary.css">
+</head>
+    
+<body>
+<div class="wrap">
+    <div class="header"></div>
+    <!-- 모달 -->
+    <div class="modal_background">
+        <div class="small_modal">
+            <div class="sm_modal_buttons">
+                <div class="sm_mds_modal_button1" onclick="A()">수정</div>
+                <div class="sm_mds_modal_button2" onclick="B()">삭제</div>
+                <div class="sm_mds_modal_button3" onclick="close_modal()">닫기</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 여기까지 모달 -->
+    <div class="diary">
+        {% if user_name is not None %}
+        <div class="dr_user_diary">{{user_name}}의 다이어리</div>
+        {% endif %}
+        <div class="dr_user_plot">
+            <!-- <canvas class="bar-chart" width="700" height="200" id="bar-chart"></canvas> -->
+            <canvas id="myChart" class="mychart"></canvas>
+        </div>
+        <div class="dr_fighting" id="dr_fighting">comment</div>
+        <div class="dr_user_posts">
+            <div class="dr_up_posts_card">
+                <div class="dr_up_dc_data_modal">
+                    <div class="dr_up_cd_date">&ensp; $월$일 오늘의 자세</div>
+                    <div class="dr_up_cd_modal_button" onclick="open_modal()"><svg aria-label="옵션 더 보기" class="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24"><circle cx="12" cy="12" r="1.5"></circle><circle cx="6" cy="12" r="1.5"></circle><circle cx="18" cy="12" r="1.5"></circle></svg></div>
+                </div>
+                <div class="dr_up_cd_post">
+                    <div class="dr_up_cd_pt_img"></div>
+                    <div class="dr_up_cd_pt_act_name">
+                        <div class="dr_up_cd_pt_an_comment">오늘의 요가 자세 : </div>
+                        <div class="dr_up_cd_pt_an_name">$$$</div>
+                    </div>
+                    
+                    <div class="dr_up_cd_pt_acccheck">
+                        <div class="dr_up_cd_pt_ac_acc">정확도 : $%</div>
+                        <div class="dr_up_cd_pt_ac_check">잘했슈~</div>
+                    </div>
+                    <div class="dr_up_cd_pt_comment">오늘의 한마디 : 오늘~~가 어려워서 아쉬웠슈</div>
+                </div>
+            </div>
+            <div class="dr_up_posts_card">
+                <div class="dr_up_dc_data_modal">
+                    <div class="dr_up_cd_date">&ensp; $월$일 오늘의 자세</div>
+                    <div class="dr_up_cd_modal_button" onclick="open_modal()"><svg aria-label="옵션 더 보기" class="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24"><circle cx="12" cy="12" r="1.5"></circle><circle cx="6" cy="12" r="1.5"></circle><circle cx="18" cy="12" r="1.5"></circle></svg></div>
+                </div>
+                <div class="dr_up_cd_post">
+                    <div class="dr_up_cd_pt_img"></div>
+                    <div class="dr_up_cd_pt_act_name">
+                        <div class="dr_up_cd_pt_an_comment">오늘의 요가 자세 : </div>
+                        <div class="dr_up_cd_pt_an_name">$$$</div>
+                    </div>
+                    
+                    <div class="dr_up_cd_pt_acccheck">
+                        <div class="dr_up_cd_pt_ac_acc">정확도 : 80%</div>
+                        <div class="dr_up_cd_pt_ac_check">잘했슈~</div>
+                    </div>
+                    <div class="dr_up_cd_pt_comment">오늘의 한마디 : 오늘~~가 어려워서 아쉬웠슈</div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+</body>
+<script src="../static/js/diary.js"></script>
+</html>
