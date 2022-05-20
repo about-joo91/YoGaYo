@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Julius+Sans+One&family=Rubik&display=swap');
+
+body {
+  background-color: #f1f1f1;
+}
+
+.main_loginer{
+    margin: 170px auto;
+    max-width: fit-content;
+    border: none;
+    padding: 0;
+    text-align: center;
+}
+
+.ml_information_box{
+    width: 400px;
+    height: 500px;
+    background-color: #f1f1f1;
+    border: none;
+}
+
+img {
+  width: 59px;
+  height: 55px;
+}
+
+/* YOGAYO 글씨로고 */
+.ml_ib_logo{
+    font-family: 'Julius Sans One', sans-serif;
+    color: #83CCC0;
+    font-size: 36px;
+    margin-top: -20px;
+}
+
+/* 이메일 글씨 */
+.ml_ib_email_text{
+    font-size: 18px;
+    font-weight: normal;
+    text-align: left;
+    padding-left: 70px;
+    margin-top: 30px;
+    margin-bottom: 5px;
+}
+
+/* 이메일 박스 */
+.ml_ib_email_box{
+    width: 280px;
+    height: 38px;
+    border-radius: 5px;
+    border: none;
+    font-size: larger;
+    text-align: center;
+}
+
+/* 비밀번호 글씨 */
+.ml_ib_password_text{
+    font-size: 18px;
+    font-weight: normal;
+    text-align: left;
+    padding-left: 70px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+/* 비밀번호 박스 */
+.ml_ib_password_box{
+    width: 280px;
+    height: 38px;
+    border-radius: 5px;
+    border: none;
+    font-size: larger;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* 로그인 버튼 */
+.ml_ib_login_button{
+    font-size: 22px;
+    font-weight: bolder;
+    width: 285px;
+    height: 38px;
+    border-radius: 5px;
+    border: none;
+    background-color: #83CCC0;
+    color: white;
+    margin-top: 50px;
+}
+
+/* 회원가입 버튼 호버 */
+.ml_ib_login_button:hover{ 
+    box-shadow:285px 0 0 0 rgba(20,93,81,0.5) inset; 
+}
+
+/* 로그인 버튼 누르면 글씨 작아지는 것 */
+.ml_ib_login_button:active{
+    font-size:20px;
+  }
+
+/* 비밀번호 찾기 */
+.ml_ib_find{
+    display:block;
+    color: #0F6AF2;
+    font-size: 20px;
+    padding-top: 20px;
+    padding-left: 150px;
+    text-decoration-line:none;
+}
+
+/* 회원 질문 */
+.ml_ib_question{
+    font-size: 20px;
+    font-weight: normal;
+    margin-top: 50px;
+}
+
+/* 회원가입 클릭 */
+.ml_ib_join{
+    color: #0F6AF2;
+    font-size: 20px;
+    font-weight: normal;
+    margin-top: 50px;
+    text-decoration-line:none;
+}
+
+/* 박스쉐도우 
+온클릭 메소드 애드이벤트리스너 */
