@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&family=Nanum+Myeongjo&family=Noto+Serif+KR&family=Sunflower&display=swap');
+
+html {
+    background-color: rgb(241, 241, 241);
+    height: 100vh;
+    width: 100vw;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+}
+
+.main_header {
+    width: 100%;
+    height: 5%;
+    background: rgba(248, 248, 248);
+    display: flex;
+    align-items: center;
+}
+
+.mh_contents {
+    margin-left: 14%;
+    background: rgba(248, 248, 248);
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.mh_c_content {
+    background: rgba(248, 248, 248);
+    margin-left: 15px;
+    font-family: 'Julius Sans One';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    color: #83CCC3;
+    height: 10%;
+    line-height: 10%;
+    width: 50%;
+}
+
+.mh_c_icon {
+    width: 50px;
+    height: 50px;
+    background: url('/static/images/noun-yoga-3000987.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+}
+
+.main_upper_card {
+    height: 100vh;
+}
+
+.muc_main_image {
+    width: 100%;
+    height: auto;
+    max-height: 100vh;
+    position: relative;
+    object-fit: cover;
+}
+
+.muc_main_upper_content {
+    position: absolute;
+    left: 14%;
+    top: 22%;
+    font-size: 3rem;
+    height: 12%;
+    font-family: 'Noto Serif KR', serif;
+    width: 40%;
+}
+
+.muc_main_upper_button {
+    position: absolute;
+    width: 8.5%;
+    height: 4.5%;
+    left: 36%;
+    top: 35%;
+    font-size: 1rem;
+    font-family: 'Noto Serif KR', serif;
+    background-color: #83CCC3;
+    color: white;
+    border-radius: 10px;
+    border: 0;
+}
+
+.middle_picture_card {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+}
+
+.m_pc_left {
+    width: 55%;
+    height: 100%;
+    display: flex;
+}
+
+.m_pc_l_content {
+    width: 100%;
+    font-size: 53px;
+    margin: auto;
+    font-weight: 800;
+    font-family: 'Noto Serif KR', serif;
+    text-align: center;
+}
+
+.m_pc_l_under {
+    margin-top: 2rem;
+    font-size: 17px;
+    font-weight: 200;
+    color: rgb(130, 130, 130);
+    line-height: 2.5rem;
+
+}
+
+.m_pc_right {
+    background-color: white;
+    width: 45%;
+    height: 100%;
+    display: flex;
+}
+
+.m_pc_r_content {
+    width: 80%;
+    height: 50%;
+    margin: auto;
+    background-color: rgb(242, 242, 242);
+}
+
+.m_pc_r_c_img {
+    max-width: 55rem;
+    height: auto;
+    position: relative;
+    top: -30%;
+    left: -12%;
+    object-fit: cover;
+    z-index: 2;
+}
