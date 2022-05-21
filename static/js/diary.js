@@ -10,8 +10,8 @@ if (e.target.classList.contains('modal_background')) {
 function open_modal(){
     document.querySelector('.modal_background').style.display="block"
     document.body.style.overflow = 'hidden';
-    let modal_top_now = parseInt((window.innerHeight - 380) / 2)
-    let modal_left_now = parseInt((window.innerWidth - 380) / 2)
+    let modal_top_now = parseInt((window.innerHeight - 200) / 2)
+    let modal_left_now = parseInt((window.innerWidth - 300) / 2)
     let small_modal_body = document.querySelector('.small_modal');
     small_modal_body.style.left = modal_left_now + "px";
     small_modal_body.style.top = modal_top_now + "px";
@@ -23,7 +23,31 @@ function open_modal(){
 
  function close_modal(){
     document.querySelector('.modal_background').style.display="none"
-    document.querySelector('.small_modal').style.display="none"
+    document.body.style.overflow = 'auto';
+}
+// 여기는 edit_modal
+let edit_text = document.querySelector('.edit_text')
+const edit_modal_background = document.querySelector('.edit_modal_background');
+const edit_small_modal = document.querySelector('.edit_small_modal');
+
+edit_modal_background.addEventListener('click', function (e) {
+if (e.target.classList.contains('edit_modal_background')) {
+    close_edit_modal()
+}
+})
+function open_edit_modal(){
+    edit_modal_background.style.display="block";
+    document.body.style.overflow = 'hidden';
+    let edit_modal_top_now = parseInt((window.innerHeight - 400) / 2);
+    let edit_modal_left_now = parseInt((window.innerWidth - 800) / 2);
+    const edit_small_modal_body = document.querySelector('.edit_small_modal');
+    edit_small_modal_body.style.left = edit_modal_left_now + "px";
+    edit_small_modal_body.style.top = edit_modal_top_now + "px";
+    edit_small_modal.style.justifycontent = 'center';
+    edit_small_modal.style.alignitems = "center"; 
+}
+function close_edit_modal(){
+    edit_modal_background.style.display="none"
     document.body.style.overflow = 'auto';
 }
     // myChart
@@ -99,10 +123,23 @@ if (acc[0] > acc[1]){
     document.getElementById("dr_fighting").innerHTML = "축하해요 어제보다" + per + "%만큼 잘하셨어요!!ㅎㅎ";
 
  //여기는 today_post리스트 점수, 자세같은거 다루는 곳 
-let today_acc = 80;  //today_acc는 오늘 날짜의 acc를 가져온다.
+let today_acc = 80;
+// let today_acc = document.querySelector("#acc").val();  //today_acc는 오늘 날짜의 acc를 가져온다.
 document.querySelector('.dr_up_cd_pt_ac_acc').innerHTML="정확도" + today_acc + "%";
     if (today_acc >= 80){
         document.querySelector('.dr_up_cd_pt_ac_check').innerHTML="80%면 잘한거쥬";
     }
 
 }
+
+fetch("http://192.168.0.17:8080/diary/edit", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    title: "Test",
+    body: "I am testing!",
+    userId: 1,
+  }),
+}).then((response) => console.log(response));
