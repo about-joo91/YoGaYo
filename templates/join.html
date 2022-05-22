@@ -5,23 +5,6 @@
     <title>회원가입 | YOGAYO</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="../static/css/join.css"/>
-    <link rel="apple-touch-icon" sizes="57x57" href="../static/images/favicon.ico/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="../static/images/favicon.ico/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="../static/images/favicon.ico/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="../static/images/favicon.ico/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="../static/images/favicon.ico/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="../static/images/favicon.ico/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="../static/images/favicon.ico/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="../static/images/favicon.ico/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="../static/images/favicon.ico/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="../static/images/favicon.ico/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../static/images/favicon.ico/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="../static/images/favicon.ico/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../static/images/favicon.ico/favicon-16x16.png">
-    <link rel="manifest" href="../static/images/favicon.ico/manifest.json">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="../static/images/favicon.ico/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
   </head>
   <body>
     <div class="main_joiner">
@@ -30,14 +13,15 @@
             <div class="mj_jb_logo" ><p>YOGAYO</p></div>
             <p class="mj_jb_check">요가 동작을 점검하고 싶다면 가입해보셔요</p>
             <p class="mj_jb_email_text">이메일</p>
-            <input type="text" id="new_email" class="mj_jb_email_box"/>
+            <input type="text" id="user_email" class="mj_jb_email_box"/>
             <p class="mj_jb_nick_text">닉네임</p>
-            <input type="text" id="new_nick" class="mj_jb_nick_box"/>
+            <input type="text" id="nick_name" class="mj_jb_nick_box"/>
             <p class="mj_jb_password_text">비밀번호</p>
-            <input type="password" id="new_password" class="mj_jb_password_box"/>
-            <button class="mj_jb_join_button">회원 가입</button>
-            <p class="mj_jb_question">회원이셔요?<a href="http://127.0.0.1:5500/templates/login.html" class="mj_jb_login">&nbsp&nbsp로그인</a></p>
+            <input type="password" id="user_password" class="mj_jb_password_box"/>
+            <button id="join_button" class="mj_jb_join_button">회원 가입</button>
+            <p class="mj_jb_question">회원이셔요?<a href="http://127.0.0.1:5000/templates/login.html" class="mj_jb_login">&nbsp&nbsp로그인</a></p>
         </div>
     </div>
+    <script src="/static/js/join.js?ver=19"></script>
   </body>
 </html>
