@@ -17,23 +17,27 @@
         <div id="modal" class="upload_modal_wrapper">
             <div class="upload_modal">
                 <div id="drag" class="um_body">
-                    <div class="title">
-                        <h2>나의 요가 자세</h2>
-                    </div>
+                    <br>
                     <div class="close-area">X</div>
+                    <div class="title">
+                        <h1>나의 요가 자세</h1>
+                    </div>
+                    <br>
                     <div class="file-upload">
                         <div class="upload-box">
-                            <input style="width:280px;" type="text" id="title" placeholder="업로드할 이미지 제목을 입력해주세요">
-                            <input type="file" id="file" class="btn-upload">
+                            <div class = "input_box">
+                               <input class="input_title" type="text" id="title" placeholder="업로드할 이미지 제목을 입력해주세요">
+                               <br>
+                               <br>
+                               <input class="select_file" type="file" id="file" class="btn-upload">
+                            </div>
                         </div>
-                        <button onclick="posting()">업로드</button>
+                        <div class="button-box">
+                            <button class="upload_button" onclick="posting()">업로드</button>
+                        </div>
+                        
                     </div>
-                    <br>
-                    <hr>
-                    <div>
-                    <input style="width:300px;" onchange="find_img()" type="text" id="find_title" placeholder="볼 이미지의 제목을 입력해주세요">
-                    <br>
-                    <a id='link' href="#">업로드 한 이미지 보기</a>
+                    
                     </div>
                 </div>
             </div>
