@@ -12,13 +12,13 @@ async function sign_up() {
         user_email.focus();
         return;
     }
- 
+
     if (nick_name_give == "") {
         alert("nick_name 칸이 비어있으셔요.")
         nick_name.focus()
         return;
     }
-    
+
     if (user_password_give == "") {
         alert("비밀번호 칸이 비어있으셔요.")
         user_password.focus()
@@ -27,34 +27,34 @@ async function sign_up() {
 
 
     const request_body = {
-        user_email_give : user_email_give,
-        user_password_give : user_password_give,
-        nick_name_give : nick_name_give
+        user_email_give: user_email_give,
+        user_password_give: user_password_give,
+        nick_name_give: nick_name_give
     }
 
-    const response = await fetch('http:127.0.0.1:5000/login/sign_up',{
-        method:'POST',
-        headers: { 'Content-Type': 'application/json', }, 
+    const response = await fetch('http:127.0.0.1:5000/login/sign_up', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', },
         body: JSON.stringify(request_body),
-        
+
     })
 
 
 }
-    // $.ajax({
-    //     type: "POST",
-    //     url: "/login/sign_up",
-    //     data: {
-    //         user_email_give : user_email_give,
-    //         user_password_give : user_password_give,
-    //         nick_name_give : nick_name_give,
-    //     },
-    //     success: function (response) {
-    //         alert(response['msg'])
-    //         window.location.replace(response['url'])
-    //     }
-    // });
+// $.ajax({
+//     type: "POST",
+//     url: "/login/sign_up",
+//     data: {
+//         user_email_give : user_email_give,
+//         user_password_give : user_password_give,
+//         nick_name_give : nick_name_give,
+//     },
+//     success: function (response) {
+//         alert(response['msg'])
+//         window.location.replace(response['url'])
+//     }
+// });
 
 const join_button = document.querySelector('#join_button');
 
-join_button.addEventListener('click',sign_up)
+join_button.addEventListener('click', sign_up)
