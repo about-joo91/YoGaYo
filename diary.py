@@ -30,7 +30,20 @@ def diary_page():
     user = {'_id' : ObjectId("62887eb015570b9eedb078f6")}
     user_name = db.user.find_one({"_id" : user.get('_id')})
     posts = list(db.yoga_post.find({"user_id" : user.get('_id')}))
-    return render_template('diary.html', user_name = user_name, posts = posts)
+    acc_list = []
+    for post in enumerate(posts):
+        acc_list.append(post)
+    return render_template("diary.html",user_name = user_name, posts = posts )
+
+@diary.route("/diary/acc")
+def get_acc():
+    user = {'_id' : ObjectId("62887eb015570b9eedb078f6")}
+    posts = list(db.yoga_post.find({"user_id" : user.get('_id')}))
+    posts_acc = []
+    for post in posts[0:6]:
+        posts_acc.append(post.get('acc'))
+    print('posts_acc : ',posts_acc)
+    return jsonify({"result" : "success", "posts_acc" : posts_acc})
 
 
 
@@ -38,10 +51,10 @@ def diary_page():
 def edit_post():
     user = {'_id' : ObjectId("62887eb015570b9eedb078f6")}
     posts = list(db.yoga_post.find({"user_id" : user.get('_id')}))
+    
     data = json.loads(request.data)
     doc = {
         'content' : data.get('edit_texts_give', None),
-        # 'yoga_img' : 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fkr.lovepik.com%2Fimage-500882280%2Fyoga.html&psig=AOvVaw1Xlgv40Hetj1P7ztFBo62J&ust=1653350989073000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCPjjw8aq9PcCFQAAAAAdAAAAABAD'
     }
     post_id = {
         'post_id' : data.get('post_id_give', None)
@@ -54,7 +67,6 @@ def delete_post():
     user = {'_id' : ObjectId("62887eb015570b9eedb078f6")}
     posts = list(db.yoga_post.find({"user_id" : user.get('_id')}))
     data = json.loads(request.data)
-    print("request.data : ",data)
     post_id = {
         'post_id' : data.get('post_id_give', None)
     }
