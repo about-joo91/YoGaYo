@@ -1,3 +1,10 @@
+# featured/modal_giho
+static/css/dragndrop.css
+static/js/dragndrop.js
+templates/modal.html
+static/css/modal.css
+static/js/modal.js
+
 
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,pycharm,macos,windows,linux,zsh
 # Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,pycharm,macos,windows,linux,zsh
@@ -241,3 +248,4 @@ zsdoc/data
 !/tests/_output/.gitkeep
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,pycharm,macos,windows,linux,zsh
+
