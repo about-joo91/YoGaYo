@@ -14,15 +14,17 @@
 <div class="wrap">
     <div class="header"></div>
     <!-- 모달 -->
-    <div class="modal_background" id="modal_background" + {{post_id}}>
+    {% for post in posts %}
+    <div class="modal_background" >
         <div class="small_modal">
             <div class="sm_modal_buttons">
                 <div class="sm_mds_modal_button1" onclick="open_edit_modal()">수정</div>
-                <div class="sm_mds_modal_button2" onclick="B()">삭제</div>
-                <div class="sm_mds_modal_button3" onclick="close_modal()">닫기</div>
+                <div class="sm_mds_modal_button2" onclick="delete_post()">삭제</div>
+                <div class="sm_mds_modal_button3" onclick="close_mo90pdal()">닫기</div>
             </div>
         </div>
     </div>
+    
     
     <!-- 여기부터 수정 모달-->
     <div class="edit_modal_background">
@@ -30,14 +32,15 @@
             <div class="esm_header">코멘트 수정하기</div>
             <div class="esm_body">
                 <form>
-                    <textarea class="edit_text" cols="100" cols="<100" rows="10"></textarea>
+                    <textarea id="edit_text_{{post._id}}" class="edit_text" cols="100" cols="<100" rows="10">{{post.content}}</textarea>
                 </form>
             </div>
             <div class="esm_button">
-                <button>수정하기</button>
+                <button onclick="edit_texts('{{post._id}}')">수정하기</button>
             </div>
         </div>
     </div>
+    {% endfor %}
     
     <div class="diary">
         {% if user_name %}
@@ -57,6 +60,7 @@
                 </div>
                 <div class="dr_up_cd_post">
                     <div class="dr_up_cd_pt_img"></div>
+                        <!-- style="background-image : url('{{post.get('yoga_img')}}')"></div> -->
                     <div class="dr_up_cd_pt_act_name">
                         <div class="dr_up_cd_pt_an_comment">오늘의 요가 자세 : </div>
                         <div class="dr_up_cd_pt_an_name">{{post.get('acting_name')}}</div>
@@ -72,7 +76,9 @@
             <div class="dr_up_posts_card">
                 <div class="dr_up_dc_data_modal">
                     <div class="dr_up_cd_date">&ensp; $월$일 오늘의 자세</div>
-                    <div class="dr_up_cd_modal_button" onclick="open_modal()"><svg aria-label="옵션 더 보기" class="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24"><circle cx="12" cy="12" r="1.5"></circle><circle cx="6" cy="12" r="1.5"></circle><circle cx="18" cy="12" r="1.5"></circle></svg></div>
+                    {% for post in posts %}
+                    <div class="dr_up_cd_modal_button" ><svg aria-label="옵션 더 보기" class="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24"><circle cx="12" cy="12" r="1.5"></circle><circle cx="6" cy="12" r="1.5"></circle><circle cx="18" cy="12" r="1.5"></circle></svg></div>
+                    {% endfor %}
                 </div>
                 <div class="dr_up_cd_post">
                     <div class="dr_up_cd_pt_img"></div>
