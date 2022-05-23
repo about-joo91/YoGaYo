@@ -18,19 +18,19 @@ async function login() {
     }
 
     const request_body = {
-        user_email_give : user_email_give,
-        user_password_give : user_password_give
+        user_email_give: user_email_give,
+        user_password_give: user_password_give
     }
 
-    const response = await fetch('http:127.0.0.1:8080/login',{
-        method:'POST',
-        body:request_body
+    const response = await fetch('http:127.0.0.1:8080/login', {
+        method: 'POST',
+        body: request_body
     })
 }
 
 const login_button = document.querySelector('#login_button');
 
-login_button.addEventListener('click',login)
+login_button.addEventListener('click', login)
 
 
 
