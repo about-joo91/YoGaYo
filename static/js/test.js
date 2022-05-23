@@ -20,8 +20,8 @@ function posting() {
         method: "POST",
         body: form_data
     })
-    .then((response) => alert(response["result"]), window.location.reload())
-    .then((data) => window.location.reload());
+    // .then((response) => alert(response["result"]))
+    // .then((data) => window.location.reload());
 }
 function find_img() {
     // $('#find_title').val() 퓨어 자바스크립트 변환
@@ -47,6 +47,7 @@ closeBtn.addEventListener("click", e => {
 
 modal.addEventListener("click", e => {
     const evTarget = e.target
+    console.log(evTarget)
     if(evTarget.classList.contains("upload_modal_wrapper")) {
         modal.style.display = "none"
     }
