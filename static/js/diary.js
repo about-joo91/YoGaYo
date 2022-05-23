@@ -119,27 +119,81 @@ new Chart(document.getElementById("myChart"), {
 });
 
 if (acc[0] > acc[1]){
-    let per = acc[0] - acc[1]
-    document.getElementById("dr_fighting").innerHTML = "축하해요 어제보다" + per + "%만큼 잘하셨어요!!ㅎㅎ";
-
+    const dr_fighting = document.getElementById("dr_fighting")
+    let per = acc[0] - acc[1];
+    if (per > 0) {
+        dr_fighting.innerHTML = "축하해요 어제보다" + per + "%만큼 잘하셨어요!!ㅎㅎ";
+    }
+    else {
+        dr_fighting.innerHTML = "어제보다 " + per + "%만큼 내려갔네요 ㅠㅠ 분발하슈"
+    }
  //여기는 today_post리스트 점수, 자세같은거 다루는 곳 
 let today_acc = 80;
+const post_acc = document.querySelector('.dr_up_cd_pt_ac_acc');
+const post_acc_check = document.querySelector('.dr_up_cd_pt_ac_check');
 // let today_acc = document.querySelector("#acc").val();  //today_acc는 오늘 날짜의 acc를 가져온다.
-document.querySelector('.dr_up_cd_pt_ac_acc').innerHTML="정확도" + today_acc + "%";
+post_acc.innerHTML="정확도" + today_acc + "%";
     if (today_acc >= 80){
-        document.querySelector('.dr_up_cd_pt_ac_check').innerHTML="80%면 잘한거쥬";
+        post_acc_check.innerHTML="80%면 잘한거쥬";
     }
 
 }
+// 수정버튼을 눌렀을 시
+async function edit_texts(post_id){
+    const edit_texts = document.getElementById("edit_text_"+ post_id )
+    const edit_post_id = post_id
+    const edit_texts_Data ={
+        edit_texts_give : edit_texts.value,
+        post_id_give : edit_post_id
+    }
+    console.log(edit_texts_Data)
+    const response = await fetch("http://192.168.35.181:8080/diary/edit", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(edit_texts_Data)
+    })
+    const data = await response.json(); 
+    alert(data['msg'])
+    window.location.replace("/diary")
 
-fetch("http://192.168.0.17:8080/diary/edit", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    title: "Test",
-    body: "I am testing!",
-    userId: 1,
-  }),
-}).then((response) => console.log(response));
+    // .then(res => {
+    //     if (res.status === 200) {
+    //         // data = res.json()
+    //         data = res.json();
+    //         console.log(data)
+    //         // alert(data['msg']);
+    //         // window.location.replace("/diary")
+    //     } else if (res.status === 403) {
+    //         return res.json();
+    //     }
+    //   })
+}
+// 삭제 버튼을 눌렀을 시
+async function delete_post(post_id){
+    const delete_post_id = post_id;
+    const delete_texts_Data ={
+        post_id_give : delete_post_id
+    }
+    const response = await fetch("http://192.168.35.181:8080/diary/edit", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(delete_texts_Data)
+    })
+    const data = await response.json(); 
+    alert(data['msg'])
+    window.location.replace("/diary")   
+    // .then(res => {
+    //     if (res.status === 200) {
+    //         console.log(res)
+    //         alert(res.msg);
+    //         // window.location.replace("/diary")
+    //     } else if (res.status === 403) {
+    //         return res.json();
+    //     }
+    //   })
+
+}
