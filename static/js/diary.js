@@ -1,23 +1,124 @@
-// 모달
+
+window.onload = async function get_acc(){
+
+    const response = await fetch("http://192.168.0.17:8080/diary/acc", {
+        method: "GET",
+    })
+    
+    const data = await response.json(); 
+    let posts_acc = data['posts_acc'];
+    // 여기가 차트
+    new Chart(document.getElementById("myChart"), {
+        type: 'line',
+        data: {
+            labels: ['오늘', '1일전', '2일전', '3일전', '4일전', '5일전'],
+            datasets: [{
+                label: '테스트 데이터셋',
+                data: [
+                    posts_acc[0],
+                    posts_acc[1],
+                    posts_acc[2],
+                    posts_acc[3],
+                    posts_acc[4],
+                    posts_acc[5],
+                ],
+                borderColor: '#83ccc0',
+                // backgroundColor: "rgba(24, 21, 14, 0.5)",
+                fill: false,
+                lineTension: 0.2
+            }]
+        },
+        options: {
+            legend: { display: false }, //얘가 있으면 그래프 지우기가 가능해서 뺌
+            responsive: true,
+            title: {
+                display: false,
+                text: '나의 요가자세 정확도'
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: false,
+                        labelString: '날짜별 정확도'
+                    }
+                }],
+                yAxes: [{
+                    display:false,
+                    ticks: {
+                        suggestedMin: 0,
+                    },
+                    scaleLabel: {
+                        display: false,
+                        labelString: 'X%'
+                    }
+                }]
+            }
+        }
+    });
+    console.log(posts_acc[0])
+        const dr_fighting = document.getElementById("dr_fighting")
+        let per = posts_acc[0] - posts_acc[1];
+        if (per > 0) {
+            dr_fighting.innerHTML = "Comment : 축하해요 어제보다" + per + "%만큼 잘하셨어요!!ㅎㅎ";
+        }
+        else {
+            dr_fighting.innerHTML = "Comment : 어제보다 " + per + "%만큼 내려갔네요 ㅠㅠ 분발하슈"
+        }
+     //여기는 today_post리스트 점수, 자세같은거 다루는 곳 
+
+    // let today_acc = posts_acc[0];
+    // const post_acc = document.querySelector('.dr_up_cd_pt_ac_acc');
+    // const post_acc_check = document.querySelector('.dr_up_cd_pt_ac_check');
+    
+    // post_acc.innerHTML="정확도 (" + today_acc + "%)";
+    //     if (today_acc > 90){
+    //         post_acc_check.innerHTML="와 90퍼를 넘기셨네요!! 축하드려요 ㅎㅎ"
+    //     }
+    //     else if (today_acc >= 80){
+    //         post_acc_check.innerHTML="80%면 잘한거쥬";
+    //     }
+    //     else if (today_acc >= 70){
+    //         post_acc_check.innerHTML="70%면 잘한거쥬";
+    //     }
+    //     else if (today_acc >= 60){
+    //         post_acc_check.innerHTML="60%대라고...?면 잘한거쥬";
+    //     }
+    //     else {
+    //         post_acc_check.innerHTML="힘냅시다.";
+    //     }
+}
 const modal_background = document.querySelector('.modal_background');
 const small_modal = document.querySelector('.small_modal');
 
 modal_background.addEventListener('click', function (e) {
 if (e.target.classList.contains('modal_background')) {
+    console.log('classList : ',e.target.classList)
     close_modal()
 }
 })
-function open_modal(){
-    document.querySelector('.modal_background').style.display="block"
+
+function open_modal(post_id){
+    const small_modal = document.getElementById('small_modal_'+ post_id);
+    document.getElementById('modal_background_'+ post_id).style.display="block";
     document.body.style.overflow = 'hidden';
     let modal_top_now = parseInt((window.innerHeight - 200) / 2)
-    let modal_left_now = parseInt((window.innerWidth - 300) / 2)
-    let small_modal_body = document.querySelector('.small_modal');
+    let modal_left_now = parseInt((window.innerWidth - 440) / 2)
+    let small_modal_body = document.getElementById('small_modal_'+ post_id);
     small_modal_body.style.left = modal_left_now + "px";
     small_modal_body.style.top = modal_top_now + "px";
     small_modal.style.display = 'flex';
     small_modal.style.justifycontent = 'center';
     small_modal.style.alignitems = "center"; 
+    console.log("small_modal_post_id",post_id)
 
 }
 
@@ -27,6 +128,7 @@ function open_modal(){
 }
 // 여기는 edit_modal
 let edit_text = document.querySelector('.edit_text')
+
 const edit_modal_background = document.querySelector('.edit_modal_background');
 const edit_small_modal = document.querySelector('.edit_small_modal');
 
@@ -35,109 +137,29 @@ if (e.target.classList.contains('edit_modal_background')) {
     close_edit_modal()
 }
 })
-function open_edit_modal(){
+function open_edit_modal(post_id){
+    const edit_modal_background = document.getElementById('edit_modal_background_'+post_id);
+    const edit_small_modal = document.getElementById('edit_small_modal_' + post_id);
+
     edit_modal_background.style.display="block";
+    edit_small_modal.style.display="flex";
     document.body.style.overflow = 'hidden';
-    let edit_modal_top_now = parseInt((window.innerHeight - 400) / 2);
-    let edit_modal_left_now = parseInt((window.innerWidth - 800) / 2);
-    const edit_small_modal_body = document.querySelector('.edit_small_modal');
+
+    let edit_modal_top_now = parseInt((window.innerHeight - 240) / 2);
+    let edit_modal_left_now = parseInt((window.innerWidth - 700) / 2);
+    const edit_small_modal_body = document.querySelector('#edit_small_modal_' + post_id);
     edit_small_modal_body.style.left = edit_modal_left_now + "px";
     edit_small_modal_body.style.top = edit_modal_top_now + "px";
     edit_small_modal.style.justifycontent = 'center';
-    edit_small_modal.style.alignitems = "center"; 
+    edit_small_modal.style.alignitems = "center";
+    console.log("edit_modal_post_id : ",post_id) 
 }
 function close_edit_modal(){
     edit_modal_background.style.display="none"
-    document.body.style.overflow = 'auto';
+    document.body.style.overflow = 'fixed';
+    
 }
-    // myChart
-// 여기부터 차트
-let today = 80.2;
-let one_ago = 72.4;
-let two_ago = 69.2;
-let three_ago = 73.2;
-let four_ago = 57.2;
-let five_ago = 72.2;
-acc=[
-    today,one_ago,two_ago,three_ago,four_ago,five_ago
-]
-new Chart(document.getElementById("myChart"), {
-    type: 'line',
-    data: {
-        labels: ['오늘', '1일전', '2일전', '3일전', '4일전', '5일전'],
-        datasets: [{
-            label: '테스트 데이터셋',
-            data: [
-                acc[0],
-                acc[1],
-                acc[2],
-                acc[3],
-                acc[4],
-                acc[5],
-            ],
-            borderColor: 'green',
-            // backgroundColor: "rgba(24, 21, 14, 0.5)",
-            fill: false,
-            lineTension: 0
-        }]
-    },
-    options: {
-        legend: { display: false }, //얘가 있으면 그래프 지우기가 가능해서 뺌
-        responsive: true,
-        title: {
-            display: true,
-            text: '나의 요가자세 정확도'
-        },
-        tooltips: {
-            mode: 'index',
-            intersect: false,
-        },
-        hover: {
-            mode: 'nearest',
-            intersect: true
-        },
-        scales: {
-            xAxes: [{
-                display: true,
-                scaleLabel: {
-                    display: true,
-                    labelString: '날짜별 정확도'
-                }
-            }],
-            yAxes: [{
-                display: true,
-                ticks: {
-                    suggestedMin: 0,
-                },
-                scaleLabel: {
-                    display: true,
-                    labelString: 'X%'
-                }
-            }]
-        }
-    }
-});
 
-if (acc[0] > acc[1]){
-    const dr_fighting = document.getElementById("dr_fighting")
-    let per = acc[0] - acc[1];
-    if (per > 0) {
-        dr_fighting.innerHTML = "축하해요 어제보다" + per + "%만큼 잘하셨어요!!ㅎㅎ";
-    }
-    else {
-        dr_fighting.innerHTML = "어제보다 " + per + "%만큼 내려갔네요 ㅠㅠ 분발하슈"
-    }
- //여기는 today_post리스트 점수, 자세같은거 다루는 곳 
-let today_acc = 80;
-const post_acc = document.querySelector('.dr_up_cd_pt_ac_acc');
-const post_acc_check = document.querySelector('.dr_up_cd_pt_ac_check');
-// let today_acc = document.querySelector("#acc").val();  //today_acc는 오늘 날짜의 acc를 가져온다.
-post_acc.innerHTML="정확도" + today_acc + "%";
-    if (today_acc >= 80){
-        post_acc_check.innerHTML="80%면 잘한거쥬";
-    }
-
-}
 // 수정버튼을 눌렀을 시
 async function edit_texts(post_id){
     const edit_texts = document.getElementById("edit_text_"+ post_id )
@@ -147,7 +169,7 @@ async function edit_texts(post_id){
         post_id_give : edit_post_id
     }
     console.log(edit_texts_Data)
-    const response = await fetch("http://192.168.35.181:8080/diary/edit", {
+    const response = await fetch("http://192.168.0.17:8080/diary/edit", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -157,18 +179,6 @@ async function edit_texts(post_id){
     const data = await response.json(); 
     alert(data['msg'])
     window.location.replace("/diary")
-
-    // .then(res => {
-    //     if (res.status === 200) {
-    //         // data = res.json()
-    //         data = res.json();
-    //         console.log(data)
-    //         // alert(data['msg']);
-    //         // window.location.replace("/diary")
-    //     } else if (res.status === 403) {
-    //         return res.json();
-    //     }
-    //   })
 }
 // 삭제 버튼을 눌렀을 시
 async function delete_post(post_id){
@@ -186,14 +196,4 @@ async function delete_post(post_id){
     const data = await response.json(); 
     alert(data['msg'])
     window.location.replace("/diary")   
-    // .then(res => {
-    //     if (res.status === 200) {
-    //         console.log(res)
-    //         alert(res.msg);
-    //         // window.location.replace("/diary")
-    //     } else if (res.status === 403) {
-    //         return res.json();
-    //     }
-    //   })
-
 }
