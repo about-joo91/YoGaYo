@@ -17,14 +17,11 @@ import jwt
 import hashlib
 import math
 import certifi
-from django.test import RequestFactory
 from io import BytesIO
 from functools import wraps
 
 
 model = tf.keras.models.load_model('static/model/model.h5')
-seg_model = torchvision.models.detection.maskrcnn_resnet50_fpn(pretrained=True)
-seg_model.eval()
 class_name_list = ['adho mukha svanasana', 'adho mukha vriksasana',
                    'ananda balasana', 'anantasana', 'anjaneyasana',
                    'ardha chandrasana', 'ardha matsyendrasana', 'ardha pincha mayurasana',
@@ -45,14 +42,17 @@ class_name_list = ['adho mukha svanasana', 'adho mukha vriksasana',
 
 
 app = Flask(__name__)
-client = MongoClient('mongodb+srv://test:sparta@cluster0.alyd7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', tlsCAFile=certifi.where())
+client = MongoClient(
+    'mongodb+srv://test:dkssudgktpdy@cluster0.qwbpf.mongodb.net/?retryWrites=true&w=majority', tlsCAFile=certifi.where())
 db = client.sparta
 fs = gridfs.GridFS(db)
-cors = CORS(app, resources={r"*": {"origins" : "*"}})
+cors = CORS(app, resources={r"*": {"origins": "*"}})
 
 SECRET_KEY = 'YoGaYo'
 
-#토오큰
+# 토오큰
+
+
 def authrize(f):
     @wraps(f)
     def decorated_function(*args, **kws):
@@ -67,7 +67,9 @@ def authrize(f):
         return f(user, *args, **kws)
     return decorated_function
 
-#이미지 처리
+# 이미지 처리
+
+
 def black_colour_masks(image):
     colours = [[0, 0, 0]]
     r = np.zeros_like(image.astype(np.uint8))
@@ -78,104 +80,115 @@ def black_colour_masks(image):
     return coloured_mask
 
 
-#로그인 화면
+# 로그인 화면
 @app.route('/login_page')
 def join():
     return render_template('login.html')
 
-#로그인 정보가 담기는 곳
-@app.route('/login',methods=['POST'])
+# 로그인 정보가 담기는 곳
+
+
+@app.route('/login', methods=['POST'])
 def sign_in():
     data = json.loads(request.data)
     user_email_receive = data.get("user_email_give")
     user_password_receive = data.get("user_password_give")
-    hashed_pw = hashlib.sha256(user_password_receive.encode('utf-8')).hexdigest()
-    result = db.user.find_one({'email':user_email_receive, 'password': hashed_pw})
+    hashed_pw = hashlib.sha256(
+        user_password_receive.encode('utf-8')).hexdigest()
+    result = db.user.find_one(
+        {'email': user_email_receive, 'password': hashed_pw})
 
     if result is not None:
         payload = {
-            'id' : str(result.get('_id')),
-            'email':result.get('email'),
-            'exp' : datetime.utcnow() + timedelta(seconds=60 * 60 * 24)
+            'id': str(result.get('_id')),
+            'email': result.get('email'),
+            'exp': datetime.utcnow() + timedelta(seconds=60 * 60 * 24)
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 
         return jsonify({
-            'result': 'success', 
-            'token': token, 
+            'result': 'success',
+            'token': token,
             'msg': '로그인 성공이셔요'
         })
-    
+
     else:
         return jsonify({
-            'result':'fail', 
+            'result': 'fail',
             'msg': '아이디/비밀번호가 기억 안나셔요?'
         })
 
 
-
-#회원가입 화면
+# 회원가입 화면
 
 @app.route('/sign_up_page')
 def login():
     return render_template('join.html')
 
-#회원가입 정보가 담기는 곳
+# 회원가입 정보가 담기는 곳
+
+
 @app.route('/sign_up', methods=["POST"])
 def check():
     data = json.loads(request.data)
     user_email_receive = data.get("user_email_give")
     nick_name_receive = data.get("nick_name_give")
     user_password_receive = data.get("user_password_give")
-    hashed_password = hashlib.sha256(user_password_receive.encode('utf-8')).hexdigest()
+    hashed_password = hashlib.sha256(
+        user_password_receive.encode('utf-8')).hexdigest()
 
     doc1 = {
-        'email' : user_email_receive
+        'email': user_email_receive
     }
     doc2 = {
-        'nick' : nick_name_receive
+        'nick': nick_name_receive
     }
 
     check_email = db.user.find_one(doc1)
     check_nick = db.user.find_one(doc2)
 
     if check_email is None and check_nick is None:
-        
+
         doc3 = {
-        "email" : user_email_receive,  
-        "nick" : nick_name_receive,
-        "password" : hashed_password,  
+            "email": user_email_receive,
+            "nick": nick_name_receive,
+            "password": hashed_password,
         }
-                
+
         db.user.insert_one(doc3)
         return jsonify({
             "result": "success",
-            'msg' : '회원가입 완료셔요',
-            'url' : "/login"
+            'msg': '회원가입 완료셔요',
+            'url': "/login"
         })
 
     elif check_email is not None:
-        return jsonify ({
-            "result": "fail", 
-            'msg': '이메일이 중복이셔요', 
-            'url' : '/sign_up'
-        })
-    
-    elif check_nick is not None:
-        return jsonify ({
-            "result": "fail", 
-            'msg': '닉네임이 중복이셔요', 
-            'url' : '/sign_up'
+        return jsonify({
+            "result": "fail",
+            'msg': '이메일이 중복이셔요',
+            'url': '/sign_up'
         })
 
-#메인 화면
+    elif check_nick is not None:
+        return jsonify({
+            "result": "fail",
+            'msg': '닉네임이 중복이셔요',
+            'url': '/sign_up'
+        })
+
+# 메인 화면
+
+
 @app.route('/')
 @authrize
 def home(user):
     if user is not None:
+        yoga_posts = list(db.yoga_post.find({'user_id': user.get('_id')}))
+        
         return render_template('main.html')
 
-#메인 화면에서 데이터를 담는 곳
+# 메인 화면에서 데이터를 담는 곳
+
 
 @app.route('/fileupload', methods=['POST'])
 @authrize
@@ -191,11 +204,10 @@ def file_upload(user):
         prediction = model.predict(np.array([input_arr]))
         class_num = np.argmax(prediction)
         acc = str(math.floor(prediction[0][class_num] * 100))
-        # acc = round(prediction[0][class_num], 3)
         class_name = class_name_list[class_num]
-        print("datetime.utcnow() : ",datetime.utcnow())
-        print("class_name : ",class_name)
-        print("fs_image_id : ",fs_image_id)
+        print("datetime.utcnow() : ", datetime.utcnow())
+        print("class_name : ", class_name)
+        print("fs_image_id : ", fs_image_id)
         # db 추가
         doc = {
             'content': title_receive,
@@ -204,7 +216,7 @@ def file_upload(user):
             'acc': acc,
             'acting_name': class_name
         }
-        db.camp2.insert_one(doc)
+        db.yoga_post.insert_one(doc)
 
         return jsonify({'result': 'success'})
 
@@ -215,7 +227,7 @@ def file_upload(user):
 def file_show(user):
     if user is not None:
         # title은 현재 이미지타이틀이므로, 그것을 이용해서 db에서 이미지 '파일'을 가지고 옴
-        img_info = db.camp2.find_one({'title': title})
+        img_info = db.yoga_post.find_one({'title': title})
         img_binary = fs.get(img_info['img'])
         # html 파일로 넘겨줄 수 있도록, base64 형태의 데이터로 변환
         base64_data = codecs.encode(img_binary.read(), 'base64')
@@ -224,66 +236,71 @@ def file_show(user):
         return render_template('showimg.html', img=image)
 
 
-
-#다이어리 화면
+# 다이어리 화면
 @app.route("/diary")
 @authrize
 def diary_page():
     if user is not None:
-        user = {'_id' : ObjectId("62887eb015570b9eedb078f6")}
-        user_name = db.user.find_one({"_id" : user.get('_id')})
-        posts = list(db.camp2.find({"user_id" : user.get('_id')}))
+        user = {'_id': ObjectId("62887eb015570b9eedb078f6")}
+        user_name = db.user.find_one({"_id": user.get('_id')})
+        posts = list(db.yoga_post.find({"user_id": user.get('_id')}))
         acc_list = []
         for post in enumerate(posts):
             acc_list.append(post)
-        return render_template("diary.html",user_name = user_name, posts = posts )
+        return render_template("diary.html", user_name=user_name, posts=posts)
 
-#다이어리 화면의 차트 구성에 필요한 acc 데이터를 받아오는 곳
+# 다이어리 화면의 차트 구성에 필요한 acc 데이터를 받아오는 곳
+
+
 @app.route("/diary/acc")
 @authrize
 def get_acc():
     if user is not None:
-        user = {'_id' : ObjectId("62887eb015570b9eedb078f6")}
-        posts = list(db.yoga_post.find({"user_id" : user.get('_id')}))
+        user = {'_id': ObjectId("62887eb015570b9eedb078f6")}
+        posts = list(db.yoga_post.find({"user_id": user.get('_id')}))
         posts_acc = []
         for post in posts[0:6]:
             posts_acc.append(post.get('acc'))
-        print('posts_acc : ',posts_acc)
-        return jsonify({"result" : "success", "posts_acc" : posts_acc})
+        print('posts_acc : ', posts_acc)
+        return jsonify({"result": "success", "posts_acc": posts_acc})
 
 
-#다리어리 화면의 edit할 데이터를 담는 곳
-@app.route("/diary/edit", methods = ["POST"])
+# 다리어리 화면의 edit할 데이터를 담는 곳
+@app.route("/diary/edit", methods=["POST"])
 @authrize
 def edit_post():
     if user is not None:
-        user = {'_id' : ObjectId("62887eb015570b9eedb078f6")}
-        posts = list(db.yoga_post.find({"user_id" : user.get('_id')}))
-        
+        user = {'_id': ObjectId("62887eb015570b9eedb078f6")}
+        posts = list(db.yoga_post.find({"user_id": user.get('_id')}))
+
         data = json.loads(request.data)
         doc = {
-            'content' : data.get('edit_texts_give', None),
+            'content': data.get('edit_texts_give', None),
         }
         post_id = {
-            'post_id' : data.get('post_id_give', None)
+            'post_id': data.get('post_id_give', None)
         }
-        db.yoga_post.update_one({'_id' :ObjectId(post_id.get('post_id')) }, {'$set':doc})
-        return jsonify({"result" : "success", "msg" : "수정되었습니다!"})
+        db.yoga_post.update_one(
+            {'_id': ObjectId(post_id.get('post_id'))}, {'$set': doc})
+        return jsonify({"result": "success", "msg": "수정되었습니다!"})
 
-#다리어리 화면의 delete할 데이터를 담는 곳
-@app.route("/diary/delete", methods = ["POST"])
+# 다리어리 화면의 delete할 데이터를 담는 곳
+
+
+@app.route("/diary/delete", methods=["POST"])
 @authrize
 def delete_post():
     if user is not None:
-        user = {'_id' : ObjectId("62887eb015570b9eedb078f6")}
-        posts = list(db.yoga_post.find({"user_id" : user.get('_id')}))
+        user = {'_id': ObjectId("62887eb015570b9eedb078f6")}
+        posts = list(db.yoga_post.find({"user_id": user.get('_id')}))
         data = json.loads(request.data)
         post_id = {
-            'post_id' : data.get('post_id_give', None)
+            'post_id': data.get('post_id_give', None)
         }
-        print("delete post id : ",ObjectId(post_id.get('post_id')))
+        print("delete post id : ", ObjectId(post_id.get('post_id')))
         # db.yoga_post.delete({'_id' :ObjectId(post_id.get('post_id')) })
-        return jsonify({"result" : "success", "msg" : "삭제되었습니다!"})
+        return jsonify({"result": "success", "msg": "삭제되었습니다!"})
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)

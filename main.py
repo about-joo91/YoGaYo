@@ -59,7 +59,7 @@ def black_colour_masks(image):
 
 @app.route('/')
 def home():
-    return render_template('test.html')
+    return render_template('main.html')
 
 # 방식2 : DB에 이미지 파일 자체를 올리는 방식
 
@@ -105,5 +105,5 @@ def file_show(title):
     return render_template('showimg.html', img=image)
 
 
-if __name__ == '__main__':
-    app.run('0.0.0.0', port=8080, debug=True)
+# if __name__ == '__main__':
+#     app.run('0.0.0.0', port=8080, debug=True)

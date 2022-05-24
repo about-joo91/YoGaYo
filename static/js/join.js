@@ -22,13 +22,11 @@ async function sign_up() {
         user_email.focus();
         return pattern.test(obj.value);
     }
- 
     if (nick_name_value == "") {
         alert("닉네임을 입력하셔요")
         nick_name.focus()
         return;
     }
-    
     if (user_password_value == "") {
         alert("비밀번호를 입력하셔요")
         user_password.focus()
@@ -36,13 +34,13 @@ async function sign_up() {
     }
 
     const request_body = {
-        user_email_give : user_email_value,
-        user_password_give : user_password_value,
-        nick_name_give : nick_name_value
+        user_email_give: user_email_value,
+        user_password_give: user_password_value,
+        nick_name_give: nick_name_value
     }
 
-    const response = await fetch(back_url+'/sign_up',{
-        method:'POST',
+    const response = await fetch(back_url + '/sign_up', {
+        method: 'POST',
         body: JSON.stringify(request_body),
     });
 
@@ -53,4 +51,4 @@ async function sign_up() {
 
 const join_button = document.querySelector('#join_button');
 
-join_button.addEventListener('click',sign_up)
+join_button.addEventListener('click', sign_up)
