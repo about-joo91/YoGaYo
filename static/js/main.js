@@ -6,7 +6,7 @@
 // processData: false,         success: function (response) {
 // alert(response["result"])             window.location.reload()         }
 // });   }
-const base_url = "http://192.168.0.17:8080"
+const base_url = "http://192.168.45.104:8080"
 const file_input = document.getElementById('file');
 const preview_img_box = document.querySelector('.preview_img_box')
 file_input.addEventListener('change', function () {
@@ -59,14 +59,14 @@ btnModal.addEventListener("click", e => {
 const closeBtn = modal.querySelector(".close-area")
 closeBtn.addEventListener("click", e => {
     modal.style.display = "none"
-    document.body.style.overflow="auto";
+    document.body.style.overflow = "auto";
 })
 
 modal.addEventListener("click", e => {
     const evTarget = e.target
     if (evTarget.classList.contains("upload_modal_wrapper")) {
         modal.style.display = "none"
-        document.body.style.overflow="auto";
+        document.body.style.overflow = "auto";
     }
 })
 const pop_up_modal_wrapper = document.querySelector('.pop_up_modal_wrapper');

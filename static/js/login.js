@@ -2,7 +2,7 @@ const user_email = document.querySelector('#user_email');
 const user_password = document.querySelector('#user_password');
 
 // 자기 주소 작성할 것
-const back_url = 'http://192.168.0.17:8080';
+const back_url = 'http://192.168.45.104:8080';
 
 async function login() {
     let user_email_give = user_email.value;
@@ -21,12 +21,12 @@ async function login() {
     }
 
     const request_body = {
-        user_email_give : user_email_give,
-        user_password_give : user_password_give
+        user_email_give: user_email_give,
+        user_password_give: user_password_give
     }
 
-    const response = await fetch(back_url+'/login',{
-        method:'POST',
+    const response = await fetch(back_url + '/login', {
+        method: 'POST',
         body: JSON.stringify(request_body),
     });
 
@@ -35,10 +35,10 @@ async function login() {
     $.cookie('mytoken', data['token'], { path: '/' });
     window.location.replace("/")
 }
-function go_sign_in(){
+function go_sign_in() {
     window.location.replace("/sign_up_page")
 }
 
 const login_button = document.querySelector('#login_button');
 
-login_button.addEventListener('click',login)
+login_button.addEventListener('click', login)
