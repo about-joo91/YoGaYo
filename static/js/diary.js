@@ -1,12 +1,16 @@
+const diary_base_url = "http://192.168.0.17:8080/diary/acc";
 
+
+// 로딩이 완료 된 후, 데이터를 바로 가져옴
 window.onload = async function get_acc(){
 
-    const response = await fetch("http://192.168.0.17:8080/diary/acc", {
+    const response = await fetch(diary_base_url, {
         method: "GET",
     })
     
     const data = await response.json(); 
     let posts_acc = data['posts_acc'];
+
     // 여기가 차트
     new Chart(document.getElementById("myChart"), {
         type: 'line',
@@ -96,12 +100,12 @@ window.onload = async function get_acc(){
     //         post_acc_check.innerHTML="힘냅시다.";
     //     }
 }
+// 첫 번째 모달 여닫기
 const modal_background = document.querySelector('.modal_background');
 const small_modal = document.querySelector('.small_modal');
 
 modal_background.addEventListener('click', function (e) {
 if (e.target.classList.contains('modal_background')) {
-    console.log('classList : ',e.target.classList)
     close_modal()
 }
 })
@@ -118,7 +122,6 @@ function open_modal(post_id){
     small_modal.style.display = 'flex';
     small_modal.style.justifycontent = 'center';
     small_modal.style.alignitems = "center"; 
-    console.log("small_modal_post_id",post_id)
 
 }
 
@@ -152,7 +155,7 @@ function open_edit_modal(post_id){
     edit_small_modal_body.style.top = edit_modal_top_now + "px";
     edit_small_modal.style.justifycontent = 'center';
     edit_small_modal.style.alignitems = "center";
-    console.log("edit_modal_post_id : ",post_id) 
+
 }
 function close_edit_modal(){
     edit_modal_background.style.display="none"
@@ -186,7 +189,7 @@ async function delete_post(post_id){
     const delete_texts_Data ={
         post_id_give : delete_post_id
     }
-    const response = await fetch("http://192.168.35.181:8080/diary/edit", {
+    const response = await fetch("http://192.168.0.17:8080/diary/edit", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

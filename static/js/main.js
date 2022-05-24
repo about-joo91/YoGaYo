@@ -6,7 +6,7 @@
 // processData: false,         success: function (response) {
 // alert(response["result"])             window.location.reload()         }
 // });   }
-const base_url = "http://192.168.45.104:8080"
+const base_url = "http://192.168.0.17:8080"
 
 function posting() {
     let title = document.getElementById('title').value
@@ -20,6 +20,7 @@ function posting() {
         method: "POST",
         body: form_data
     })
+    alert("123");
     // .then((response) => alert(response["result"]))
     // .then((data) => window.location.reload());
 }
