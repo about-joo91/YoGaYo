@@ -138,3 +138,110 @@ body {
     object-fit: cover;
     z-index: 2;
 }
+
+#modal.upload_modal_wrapper {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.7);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(1.5px);
+    -webkit-backdrop-filter: blur(1.5px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    z-index: 4;
+}
+
+#modal .upload_modal {
+    /* background: rgba( 69, 139, 197, 0.70 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 13.5px );
+    -webkit-backdrop-filter: blur( 13.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    width: 400px;
+    height: 500px;
+    position: relative;
+    top: -100px;
+    padding: 10px; */
+    border-radius: 15px;
+    position: fixed;
+    height: 350px;
+    width: 350px;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    margin: 0, auto;
+    background-color: #f1f1f1;
+    display: block;
+    padding-bottom: 20px;
+    z-index: 5;
+}
+
+#modal .title {
+    padding-left: 25px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    text-shadow: 1px 1px 2px gray;
+    color: #83CCC0;
+
+}
+
+#modal .title h2 {
+    display: inline;
+}
+
+#modal .close-area {
+    /* position: relative; */
+    display: inline;
+    float: right;
+    font-size: 23px;
+    margin-right: 20px;
+    cursor: pointer;
+    text-shadow: 1px 1px 2px gray;
+    color: white;
+}
+
+.input_title {
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    border-radius: 5px;
+    padding-left: 10px;
+    width: 280px;
+    height: 50px;
+}
+
+.select_file {
+    display: block;
+    margin: 0 auto;
+    height: 30px;
+    width: 200px;
+    border-radius: 3px;
+}
+
+.button-box {
+    display: flex;
+    justify-content: center;
+}
+
+.upload_button {
+    margin-left: 10px;
+    margin-top: 75px;
+    margin-bottom: 20px;
+    height: 30px;
+    width: 60px;
+    border: 0;
+    border-radius: 5px;
+}
