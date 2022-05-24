@@ -1,17 +1,49 @@
 @import url('https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&family=Nanum+Myeongjo&family=Noto+Serif+KR&family=Sunflower&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Prompt&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&display=swap');
 html {
-    font-size: 62.5%;
-    font-family: 'Julius Sans One';
+    /* font-size: 62.5%;
+    font-family: 'Julius Sans One'; */
+    background-color: rgb(241, 241, 241);
+    height: 100vh;
+    width: 90vw;
 }
 
-.header{
-    width: 172.8rem;
-    height: 8.9rem;
-    border: 1px solid black;
-    background-color: red;
-    margin:auto;
+.main_header {
+    width: 100%;
+    height: 5rem;
+    background: rgba(248, 248, 248);
+    display: flex;
+    align-items: center;
+}
+
+.mh_contents {
+    margin-left: 14%;
+    background: rgba(248, 248, 248);
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.mh_c_content {
+    background: rgba(248, 248, 248);
+    margin-left: 15px;
+    font-family: 'Julius Sans One';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    color: #83CCC3;
+    height: 10%;
+    line-height: 10%;
+    width: 50%;
+}
+.mh_c_icon {
+    width: 50px;
+    height: 50px;
+    background: url('/static/images/noun-yoga-3000987.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
 }
 /* 모달 */
 .modal_background{
@@ -25,9 +57,9 @@ html {
     display: none;
 }
 .small_modal{
-    width: 30rem;
-    height: 20rem;
-    background-color: white;
+    width: 18rem;
+    height: 16rem;
+    background-color: #f1f1f1;
     border: 1px solid black;
     display: flex;
     flex-direction: column;
@@ -41,45 +73,45 @@ html {
 .sm_modal_buttons{
     width: 100%;
     height: 100%;
-    margin: 10px 0 10px 0;
+    margin: 12px 0 12.5px 0;
+    font-family: 'Do Hyeon', sans-serif;
+    
 }
 .sm_mds_modal_button1{
     /* margin-t  */
     width: 100%;
     height: 33.33333333333%;
-    font-size: 20px; 
-    border-bottom: 1px solid black;
-    background-color: white;
+    font-size: 24px; 
+    border-bottom: 2px solid #83CCC0;
+    background-color: #f1f1f1;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: blue;
-    font-family: 'Julius Sans One';
+    color: rgb(90,90,90);
 }
 .sm_mds_modal_button2{
     /* margin-t  */
     width: 100%;
     height: 33.33333333333%;
-    font-size: 20px; 
+    font-size: 24px; 
     /* border: 1px solid black; */
-    background-color: white;
+    background-color: #f1f1f1;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: red;
-    font-family: 'Julius Sans One';
+    color: rgb(90,90,90);
 }
 .sm_mds_modal_button3{
     /* margin-t  */
     width: 100%;
     height: 33.33333333333%;
-    font-size: 20px; 
-    border-top: 1px solid black;
-    background-color: white;
+    font-size: 24px; 
+    border-top: 2px solid #83CCC0;
+    background-color: #f1f1f1;
     display: flex;
+    color: rgb(90,90,90);
     justify-content: center;
     align-items: center;
-    font-family: 'Julius Sans One';
     
 }
 /* edit_modal */
@@ -94,8 +126,8 @@ html {
     display: none;
 }
 .edit_small_modal{
-    width: 80rem;
-    height: 40rem;
+    width: 35rem;
+    height: 20rem;
     background-color: white;
     border: 1px solid black;
     display: flex;
@@ -103,19 +135,22 @@ html {
     position: absolute;
     /* justify-content: center; */
     /* align-items: center; */
-    border-radius: 5%;
+    border-radius: 10px;
     z-index: 5;
 }
 .esm_header{
     width: 100%;
     height: 10%;
-    border: 1px solid black;
-    background-color: beige;
+    /* border: 1px solid black; */
+    /* background-color: beige; */
+    color: rgb(90,90,90);
     margin-top: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Do Hyeon', sans-serif;
     font-weight: bold;
+    font-size: 17px;
 }
 .esm_body{
     width: 100%;
@@ -131,86 +166,119 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
+
+
+    
+}
+.esm_btn_buttton{
+    font-family: 'Do Hyeon', sans-serif;
+    color: rgb(90,90,90);
+    border: 0;
+    width: 15%;
+    color: white;
+    background-color: #83CCC0;
+    font-size: 20px;
+    border-radius: 5px;
+    border-bottom: 25px;
 }
 textarea{
     resize: none;
+    font-family: 'Do Hyeon', sans-serif;
+    color: rgb(90,90,90);
 }
 /* 다이어리 */
 .diary{
     /* margin-top: 5rem;
     margin-left: 17%; */
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
     margin: 0 auto;
     padding-top: 5rem;
-    width: 130.8rem;
+    width: 100%;
     height: 250.1rem;
-    background-color: f1f1f1;
-    display: flex;
+    background: #f1f1f1;
     flex-direction: column;
     /* justify-content: center; */
-    /* align-items: center; */
+    align-items: center;
 }
 .dr_user_diary{
-    width: 50.2rem;
+    width: 45%;
     height: 10.8rem;
-    border: 1px solid black;
+    font-family: 'Do Hyeon', sans-serif;
+    color : rgb(90,90,90);
+    /* border: 1px solid black; */
     font-size: 40px;
-    margin: 0 auto 0 17%;
+    margin: 0 auto ;
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
 .dr_user_plot{
     margin: 4rem auto 0  auto;
-    width: 80.5rem;
+    width: 45%;
     height: 42.1rem;
-    background-color: rgb(245, 245, 245);
 }
 .mychart{
-    margin: 1rem auto;
+    margin: 1.5rem auto;
     height: 60%;
 }
 .dr_fighting{
-    width: 50rem;
+    /* width: 50%; */
     height: 3rem;
     font-size: 24px;
-    margin: 2rem auto 0 20%;
-    color: rgb(87, 3, 3);
+    font-family: 'Do Hyeon', sans-serif;
+    font-weight: bold;
+    margin-top: 2rem;
+    color: rgb(90,90,90);
+    display: flex;
+    justify-items: center;
+    align-items: center;
 }
 .dr_user_posts{
-    width: 110.4rem;
-    height: 170rem;
+    width: 600px;
+    height: 88rem;
     background-color: ffffff;
     margin: 4.4rem auto 0  auto;
 }
 .dr_up_posts_card{
-    width: 86.4rem;
-    height: 81.6em;
-    border: 1px solid black;
+    width: 570px;
+    height: 650px;
+    border: 2px solid rgb(210, 210, 210);
     margin: 3rem auto 0 auto;
+    border-radius: 15px;
 }
 .dr_up_dc_data_modal{
     width: 100%;
-    height: 7.5rem;
+    height: 10%;
     display: flex;
+    background-color: #f1f1f1;
     flex-direction: row;
+    border-radius: 15px 15px 0 0;
+    justify-content: space-between;
+    
 }
 .dr_up_cd_date{
-    width: 90%;
-    height: 7.5rem;
-    background-color:rgba(245, 245, 220, 0.5);
+    width: 85%;
+    height: 100%;
+    margin-left: 25px;
+    border-radius: 15px 15px 0 0;
+    background-color: #f1f1f1;
+    font-family: 'Do Hyeon', sans-serif;
     font-size: 30px;
     display: flex;
+    color: rgb(90,90,90);
     align-items: center;
-    border: 1px solid rgba(245, 245, 220, 1);
     /* padding-left: 3rem; */
 }
 .dr_up_cd_modal_button{
-    border-bottom: 1px solid rgba(245, 245, 220, 1);
-    width: 10%;
+    /* width: 15%; */
+    margin-right: 25px;
     height: 100%;
+    color: rgb(90,90,90);
+    font-size: 25px;
     /* border: 1px solid blue; */
     display: flex;
-    justify-content: center;
     align-items: center;
 }
 .dr_up_cd_post{
@@ -227,30 +295,28 @@ textarea{
 .dr_up_cd_pt_act_name{
     width: 100%;
     height: 17%;
-    border-bottom: 1px solid black;
-    /* border: 1px solid red; */
+    /* border-bottom: 1px solid black; */
     font-size: 30px;
     display: flex;
     flex-direction: row;
 }
-.dr_up_cd_pt_an_comment{
+/* .dr_up_cd_pt_an_comment{
     width: 50%;
+    color: rgb(90,90,90);
     height: 100%;
-    /* border: 1px solid blue; */
+    font-family: 'Do Hyeon', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-right: 1px solid black;
 }
 .dr_up_cd_pt_an_name{
     width: 50%;
     height: 100%;
-    /* border: 1px solid blue; */
     justify-content: center;
     align-items: center;
     display: flex;
     color : blue;
-}
+} */
 .dr_up_cd_pt_acccheck{
     width: 100%;
     height: 15%;
@@ -258,13 +324,25 @@ textarea{
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid rgb(210, 210, 210);
+}
+.acc_hover{
+    width: 570px;
+    height: 650px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    display: none;
 }
 .dr_up_cd_pt_ac_acc{
-    width: 50%;
+    width: 100%;
+    margin-top: 10px;
+    color: rgb(90,90,90);
     height: 100%;
-    /* border: 1px solid blue; */
-    border-right: 1px solid black;
+    font-family: 'Do Hyeon', sans-serif;
     font-size: 32px;
     display: flex;
     justify-content: center;
@@ -274,15 +352,19 @@ textarea{
     width: 50%;
     height: 100%;
     /* border: 1px solid blue; */
-    font-size: 40px;
+    font-size: 32px;
+    color: rgb(90,90,90);;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .dr_up_cd_pt_comment{
-    padding-top: 5px;
+    padding-top: 25px;
+    margin-left: 20px;
     width: 100%;
     height: 20%;
+    color: rgb(90,90,90);;
+    font-family: 'Do Hyeon', sans-serif;
     /* border: 1px solid blue; */
     font-size: 20px;
     padding-left: 1rem;
