@@ -237,9 +237,8 @@ def diary_page(user):
     if user is not None:
         # user = {'_id' : ObjectId("62887eb015570b9eedb078f6")}
         user_name = db.user.find_one({"_id": ObjectId(user.get('id'))},{'password':0})
-        print(ObjectId(user.get('id')))
-        posts = list(db.yoga_post.find({"user_id" : ObjectId(user.get('id'))}))
-        print(posts)
+        # posts = list(db.yoga_post.find({"user_id" : ObjectId(user.get('id'))}))
+        posts = list(db.yoga_post.find({"user_id" : user.get('_id')}))
         for post in posts:
             post['datetime'] = post['datetime'].strftime("%x")
             post['yoga_img'] = post['yoga_img'].decode('utf-8')
@@ -289,7 +288,7 @@ def delete_post(user):
             'post_id' : data.get('post_id_give', None)
         }
         db.yoga_post.delete_one({'_id' :ObjectId(post_id.get('post_id'))})
-
+        
         return jsonify({"result" : "success", "msg" : "삭제되었습니다!"})
 
 if __name__ == '__main__':

@@ -109,7 +109,6 @@ if (e.target.classList.contains('modal_background')) {
     close_modal()
 }
 })
-
 function open_modal(post_id){
     const small_modal = document.getElementById('small_modal_'+ post_id);
     document.getElementById('modal_background_'+ post_id).style.display="block";
@@ -189,7 +188,7 @@ async function delete_post(post_id){
     const delete_texts_Data ={
         post_id_give : delete_post_id
     }
-    const response = await fetch(diary_base_url+"/edit", {
+    const response = await fetch(diary_base_url+"/delete", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
