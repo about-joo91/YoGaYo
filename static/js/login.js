@@ -1,60 +1,40 @@
 const user_email = document.querySelector('#user_email');
 const user_password = document.querySelector('#user_password');
 
+// 자기 주소 작성할 것
+const back_url = 'http://123.214.154.138:5000/';
+
 async function login() {
     let user_email_give = user_email.value;
     let user_password_give = user_password.value;
 
     if (user_email_give == "") {
-        alert("email 주소가 비어있으셔요.")
+        alert("이메일 주소를 입력하셔요")
         user_email.focus();
         return;
     }
 
     if (user_password_give == "") {
-        alert("비밀번호 칸이 비어있으셔요.")
+        alert("비밀번호를 입력하셔요")
         user_password.focus();
         return;
     }
 
     const request_body = {
-        user_email_give: user_email_give,
-        user_password_give: user_password_give
+        user_email_give : user_email_give,
+        user_password_give : user_password_give
     }
 
-    const response = await fetch('http:127.0.0.1:8080/login', {
-        method: 'POST',
-        body: request_body
-    })
+    const response = await fetch(back_url+'/login',{
+        method:'POST',
+        body: JSON.stringify(request_body),
+    });
+
+    const data = await response.json();
+
+    alert(data['msg']);
 }
 
 const login_button = document.querySelector('#login_button');
 
-login_button.addEventListener('click', login)
-
-
-
-
-
-
-// function sign_in() {
-//     user_email = document.getElementById('user_email');
-//     user_password = document.getElementById('user_password');
-
-//     $.ajax({
-//         type: 'POST',
-//         url: '/login',
-//         data: {
-//             user_email_give: user_email,
-//             user_password_give: user_password
-//         },
-//         success: function (response) {
-//             if (response['result'] == 'success') {
-//                 $.cookie('mytoken', response['token'], { path: '/' });
-//                 window.location.replace('/main')
-//             } else {
-//                 alert(response['msg'])
-//             }
-//         }
-//     });
-// }
+login_button.addEventListener('click',login)
