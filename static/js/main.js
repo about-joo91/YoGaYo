@@ -6,7 +6,7 @@
 // processData: false,         success: function (response) {
 // alert(response["result"])             window.location.reload()         }
 // });   }
-const base_url = "http://192.168.45.104:8080"
+const base_url = "http://192.168.0.17:8080"
 const file_input = document.getElementById('file');
 const preview_img_box = document.querySelector('.preview_img_box')
 file_input.addEventListener('change', function () {
@@ -36,6 +36,7 @@ function posting() {
         body: form_data
     })
     alert("다이어리에서 당신의 정확도를 확인하세요!!");
+    window.location.replace("/diary");
 }
 function find_img() {
     // $('#find_title').val() 퓨어 자바스크립트 변환
@@ -80,3 +81,6 @@ pum_r_btn.addEventListener('click', function () {
     modal.style.display = 'flex'
     document.body.style.overflow = 'hidden';
 })
+function go_to_home(){
+    window.location.replace("/")
+}
