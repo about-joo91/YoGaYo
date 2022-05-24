@@ -184,7 +184,10 @@ def file_upload(user):
         title_receive = request.form['title_give']
         file = request.files['file_give']
         # gridfs 활용해서 이미지 분할 저장
+        #fs.put girdfs를 하건데
+        print("file : ",file)
         fs_image_id = fs.put(file)
+        print("fs_image_id : ",fs_image_id)
         img = Image.open(file)
         resize_img = img.resize((224, 224))
         input_arr = tf.keras.preprocessing.image.img_to_array(resize_img)
@@ -193,16 +196,18 @@ def file_upload(user):
         acc = str(math.floor(prediction[0][class_num] * 100))
         # acc = round(prediction[0][class_num], 3)
         class_name = class_name_list[class_num]
-        print("datetime.utcnow() : ",datetime.utcnow())
-        print("class_name : ",class_name)
-        print("fs_image_id : ",fs_image_id)
+        # print("datetime.utcnow() : ",datetime.utcnow())
+        # print("class_name : ",class_name)
+        # print("fs_image_id : ",fs_image_id)
         # db 추가
+        #
         doc = {
             'content': title_receive,
             'yoga_img': fs_image_id,
             'datetime': datetime.utcnow(),
             'acc': acc,
-            'acting_name': class_name
+            'acting_name': class_name,
+            'user_name' : ObjectId(user.get('id'))
         }
         db.camp2.insert_one(doc)
 
@@ -228,36 +233,38 @@ def file_show(user):
 #다이어리 화면
 @app.route("/diary")
 @authrize
-def diary_page():
+def diary_page(user):
     if user is not None:
-        user = {'_id' : ObjectId("62887eb015570b9eedb078f6")}
+        # user = {'_id' : ObjectId("62887eb015570b9eedb078f6")}
         user_name = db.user.find_one({"_id" : user.get('_id')})
         posts = list(db.camp2.find({"user_id" : user.get('_id')}))
-        acc_list = []
-        for post in enumerate(posts):
-            acc_list.append(post)
+        #리스트 형식이라...
+        for post in posts:
+            posts_fs_files = list(db.fs.files.find({"_id" : post['yoga_img']}))
+            post['datetime'] = post['datetime'].strftime("%x")
+            post['files'] = posts_fs_files
+        print("posts : ", posts)
         return render_template("diary.html",user_name = user_name, posts = posts )
 
 #다이어리 화면의 차트 구성에 필요한 acc 데이터를 받아오는 곳
 @app.route("/diary/acc")
 @authrize
-def get_acc():
+def get_acc(user):
     if user is not None:
-        user = {'_id' : ObjectId("62887eb015570b9eedb078f6")}
-        posts = list(db.yoga_post.find({"user_id" : user.get('_id')}))
+        # user = {'_id' : ObjectId("62887eb015570b9eedb078f6")}
+        posts = list(db.camp2.find({"user_id" : user.get('_id')}))
         posts_acc = []
         for post in posts[0:6]:
             posts_acc.append(post.get('acc'))
-        print('posts_acc : ',posts_acc)
         return jsonify({"result" : "success", "posts_acc" : posts_acc})
 
 
 #다리어리 화면의 edit할 데이터를 담는 곳
 @app.route("/diary/edit", methods = ["POST"])
 @authrize
-def edit_post():
+def edit_post(user):
     if user is not None:
-        user = {'_id' : ObjectId("62887eb015570b9eedb078f6")}
+        # user = {'_id' : ObjectId("62887eb015570b9eedb078f6")}
         posts = list(db.yoga_post.find({"user_id" : user.get('_id')}))
         
         data = json.loads(request.data)
@@ -273,9 +280,9 @@ def edit_post():
 #다리어리 화면의 delete할 데이터를 담는 곳
 @app.route("/diary/delete", methods = ["POST"])
 @authrize
-def delete_post():
+def delete_post(user):
     if user is not None:
-        user = {'_id' : ObjectId("62887eb015570b9eedb078f6")}
+        # user = {'_id' : ObjectId("62887eb015570b9eedb078f6")}
         posts = list(db.yoga_post.find({"user_id" : user.get('_id')}))
         data = json.loads(request.data)
         post_id = {

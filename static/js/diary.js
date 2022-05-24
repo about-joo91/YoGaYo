@@ -1,10 +1,10 @@
-const diary_base_url = "http://192.168.0.17:8080/diary/acc";
+const diary_base_url = "http://192.168.0.17:8080/diary";
 
 
 // 로딩이 완료 된 후, 데이터를 바로 가져옴
 window.onload = async function get_acc(){
 
-    const response = await fetch(diary_base_url, {
+    const response = await fetch(diary_base_url +"/acc", {
         method: "GET",
     })
     
@@ -172,7 +172,7 @@ async function edit_texts(post_id){
         post_id_give : edit_post_id,
     }
     console.log(edit_texts_Data)
-    const response = await fetch("http://192.168.0.17:8080/diary/edit", {
+    const response = await fetch(diary_base_url+ "/edit", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -189,7 +189,7 @@ async function delete_post(post_id){
     const delete_texts_Data ={
         post_id_give : delete_post_id
     }
-    const response = await fetch("http://192.168.0.17:8080/diary/edit", {
+    const response = await fetch(diary_base_url+"/edit", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

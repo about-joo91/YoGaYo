@@ -11,6 +11,7 @@ const base_url = "http://192.168.0.17:8080"
 function posting() {
     let title = document.getElementById('title').value
     let file = document.getElementById('file').files[0]
+    console.log(file)
     let form_data = new FormData()
 
     form_data.append("title_give", title)
