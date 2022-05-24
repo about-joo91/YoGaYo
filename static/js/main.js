@@ -6,7 +6,7 @@
 // processData: false,         success: function (response) {
 // alert(response["result"])             window.location.reload()         }
 // });   }
-const base_url = "http://192.168.0.23:8080"
+const base_url = "http://192.168.0.17:8080"
 const file_input = document.getElementById('file');
 const preview_img_box = document.querySelector('.preview_img_box')
 file_input.addEventListener('change', function () {
@@ -35,9 +35,7 @@ function posting() {
         method: "POST",
         body: form_data
     })
-    alert("123");
-    // .then((response) => alert(response["result"]))
-    // .then((data) => window.location.reload());
+    alert("다이어리에서 당신의 정확도를 확인하세요!!");
 }
 function find_img() {
     // $('#find_title').val() 퓨어 자바스크립트 변환
@@ -54,18 +52,21 @@ const modal = document.getElementById("modal")
 const btnModal = document.getElementById("modal_button")
 btnModal.addEventListener("click", e => {
     modal.style.display = "flex"
+    modal.style.position = "fixed";
+    document.body.style.overflow = 'hidden';
 })
 
 const closeBtn = modal.querySelector(".close-area")
 closeBtn.addEventListener("click", e => {
     modal.style.display = "none"
+    document.body.style.overflow="auto";
 })
 
 modal.addEventListener("click", e => {
     const evTarget = e.target
-    console.log(evTarget)
     if (evTarget.classList.contains("upload_modal_wrapper")) {
         modal.style.display = "none"
+        document.body.style.overflow="auto";
     }
 })
 const pop_up_modal_wrapper = document.querySelector('.pop_up_modal_wrapper');
@@ -77,4 +78,5 @@ const pum_r_btn = document.querySelector('.pum_r_btn');
 pum_r_btn.addEventListener('click', function () {
     pop_up_modal_wrapper.style.display = 'none'
     modal.style.display = 'flex'
+    document.body.style.overflow = 'hidden';
 })

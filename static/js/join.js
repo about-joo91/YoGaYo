@@ -3,7 +3,7 @@ const nick_name = document.querySelector('#nick_name');
 const user_password = document.querySelector('#user_password');
 
 // 자기 주소 작성할 것
-const back_url = 'http://192.168.0.23:8080';
+const back_url = 'http://192.168.0.17:8080';
 
 async function sign_up() {
     let user_email_value = user_email.value;
@@ -40,10 +40,14 @@ async function sign_up() {
     });
 
     const data = await response.json();
-
     alert(data['msg']);
+    window.location.replace("/login_page")
 }
 
 const join_button = document.querySelector('#join_button');
 
 join_button.addEventListener('click',sign_up)
+
+function go_login(){
+    window.location.replace('login_page')
+}
