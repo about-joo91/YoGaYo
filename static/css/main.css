@@ -9,7 +9,7 @@ html {
 
 body {
     height: 100vh;
-    width: 100vw;   
+    width: 100vw;
     overflow-x: hidden;
 }
 
@@ -246,4 +246,69 @@ body {
     width: 60px;
     border: 0;
     border-radius: 5px;
+}
+
+@keyframes pop-top-bottom {
+    0% {
+        transform: translate3d(0, -100%, 0);
+        opacity: 0;
+    }
+
+    100% {
+        top: 0px;
+        transform: translate3d(0, 3%, 0);
+    }
+}
+
+.pop_up_modal {
+    margin: auto;
+    display: flex;
+    margin-top: 15rem;
+    width: 60%;
+    height: 20%;
+    text-align: center;
+    animation-name: pop-top-bottom;
+    animation-duration: 1.8s;
+    animation-iteration-count: normal;
+    border-radius: 15px;
+    z-index: 5;
+    font-size: 25px;
+    box-shadow: 2px 2px 2px 2px rgb(210, 210, 210);
+}
+
+.pum_content {
+    display: block;
+    margin-top: 10rem;
+}
+
+.pum_btn {
+    height: 50px;
+    width: 20%;
+    margin-top: 5rem;
+    border-radius: 15px;
+    border: 0;
+    color: white;
+    font-size: 20px;
+    background-color: #83CCC0;
+}
+
+.pum_btn:hover {
+    cursor: pointer;
+}
+
+.img_box {
+    border-radius: 15px;
+    width: 30%;
+    height: 100%;
+}
+
+.img {
+    border-radius: 15px;
+    width: auto;
+    max-width: 50%;
+    height: 600px;
+}
+
+.pum_right {
+    width: 70%;
 }
