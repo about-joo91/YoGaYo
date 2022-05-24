@@ -46,7 +46,7 @@ class_name_list = ['adho mukha svanasana', 'adho mukha vriksasana',
 
 
 app = Flask(__name__)
-client = MongoClient( 'mongodb+srv://test:dkssudgktpdy@cluster0.qwbpf.mongodb.net/?retryWrites=true&w=majority', tlsCAFile=certifi.where()) 
+client = MongoClient('mongodb+srv://test:dkssudgktpdy@cluster0.qwbpf.mongodb.net/?retryWrites=true&w=majority', tlsCAFile=certifi.where()) 
 db = client.sparta
 fs = gridfs.GridFS(db)
 cors = CORS(app, resources={r"*": {"origins" : "*"}})
@@ -202,7 +202,7 @@ def file_upload(user):
             'acting_name': class_name,
             'user_name' : ObjectId(user.get('id'))
         }
-        db.camp2.insert_one(doc)
+        db.yoga_.insert_one(doc)
 
         return jsonify({'result': 'success'})
 
@@ -213,7 +213,7 @@ def file_upload(user):
 def file_show(user):
     if user is not None:
         # title은 현재 이미지타이틀이므로, 그것을 이용해서 db에서 이미지 '파일'을 가지고 옴
-        img_info = db.camp2.find_one({'title': title})
+        img_info = db.yoga_post.find_one({'title': title})
         img_binary = fs.get(img_info['img'])
         # html 파일로 넘겨줄 수 있도록, base64 형태의 데이터로 변환
         base64_data = codecs.encode(img_binary.read(), 'base64')
@@ -221,29 +221,29 @@ def file_show(user):
         # 해당 이미지의 데이터를 jinja 형식으로 사용하기 위해 넘김
         return render_template('showimg.html', img=image)
 
-
-
 #다이어리 화면
 @app.route("/diary")
 @authrize
 def diary_page(user):
     if user is not None:
         # user = {'_id' : ObjectId("62887eb015570b9eedb078f6")}
-        user_name = db.user.find_one({"_id" : user.get('_id')})
-        posts = list(db.yoga_post.find({"user_id" : user.get('_id')}))
+        user_name = db.user.find_one({"_id": ObjectId(user.get('id'))},{'password':0})
+        print(ObjectId(user.get('id')))
+        posts = list(db.yoga_post.find({"user_id" : ObjectId(user.get('id'))}))
+        print(posts)
         for post in posts:
             posts_fs_files = list(db.fs.files.find({"_id" : post['yoga_img']}))
             post['datetime'] = post['datetime'].strftime("%x")
             # post['files'] = posts_fs_files
             for posts_fs_file in posts_fs_files:
                 fs_chunks_one = db.fs.chunks.find_one({'files_id' : posts_fs_file['_id']})
-                undecoded_img_data = fs_chunks_one['data']
-                json_fs_chunks_one = dumps(undecoded_img_data)
-                base64_data = codecs.encode(loads(json_fs_chunks_one), 'base64')
+                data = loads(fs_chunks_one['data'].read())
+                base64_data = codecs.encode(data, 'base64')
+                print(fs_chunks_one)
+                print(base64_data)
                 # decoded_img_data = bson.BSON(undecoded_img_data).decode()
                 # print("123133",base64_data.decode('utf-8'))
-                post['img'] = base64_data.decode('utf-8')
-                
+                # post['img'] = base64_data.decode('utf-8')
                 # post['img'] 안에 data에 대한 정보가 있음
                 # uft-8 디코드를 진행 해야함
                 # base64_data = codecs.encode(decoded_img_data, 'base64')
@@ -259,7 +259,7 @@ def diary_page(user):
 def get_acc(user):
     if user is not None:
         # user = {'_id' : ObjectId("62887eb015570b9eedb078f6")}
-        posts = list(db.camp2.find({"user_id" : user.get('_id')}))
+        posts = list(db.yoga_post.find({"user_id" : user.get('_id')}))
         posts_acc = []
         for post in posts[0:6]:
             posts_acc.append(post.get('acc'))
