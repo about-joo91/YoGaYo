@@ -69,7 +69,11 @@
             <div class="dr_up_posts_card">
                 <div class="dr_up_dc_data_modal">
                     
-                    <div class="dr_up_cd_date">{{post.get('datetime')}} 오늘의 자세 - {{post.get('acting_name')}}</div>
+                    
+                    <div class="two_data_div">
+                        <div class="dr_up_cd_date">{{post.get('datetime')}}</div>
+                        <div class="dr_up_cd_date2">오늘의 자세 - {{post.get('acting_name')}}</div>
+                    </div>
                     <i class="bi bi-three-dots dr_up_cd_modal_button" onclick="open_modal('{{post._id}}')" ></i>
                 </div>
                 <div class="dr_up_cd_post">

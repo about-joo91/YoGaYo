@@ -71,7 +71,7 @@ window.onload = async function get_acc(){
             dr_fighting.innerHTML = "Comment : 축하해요 어제보다" + per + "%만큼 잘하셨어요!!ㅎㅎ";
         }
         else {
-            dr_fighting.innerHTML = "Comment : 어제보다 " + per + "%만큼 내려갔네요 ㅠㅠ 분발하슈"
+            dr_fighting.innerHTML = "Comment : 어제보다 " + per + "%만큼 내려갔네요 ㅠㅠ 분발하셔요"
         }
      //여기는 today_post리스트 점수, 자세같은거 다루는 곳 
 
@@ -110,8 +110,8 @@ function open_modal(post_id){
     const small_modal = document.getElementById('small_modal_'+ post_id);
     document.getElementById('modal_background_'+ post_id).style.display="block";
     document.body.style.overflow = 'hidden';
-    let modal_top_now = parseInt((window.innerHeight - 200) / 2)
-    let modal_left_now = parseInt((window.innerWidth - 440) / 2)
+    let modal_top_now = parseInt((window.innerHeight - small_modal.clientHeight) / 2)
+    let modal_left_now = parseInt((window.innerWidth - small_modal.clientWidth) / 2)
     let small_modal_body = document.getElementById('small_modal_'+ post_id);
     small_modal_body.style.left = modal_left_now + "px";
     small_modal_body.style.top = modal_top_now + "px";
@@ -145,8 +145,8 @@ function open_edit_modal(post_id){
     edit_small_modal.style.display="flex";
     document.body.style.overflow = 'hidden';
 
-    let edit_modal_top_now = parseInt((window.innerHeight - 240) / 2);
-    let edit_modal_left_now = parseInt((window.innerWidth - 700) / 2);
+    let edit_modal_top_now = parseInt((window.innerHeight - edit_small_modal.clientHeight) / 2);
+    let edit_modal_left_now = parseInt((window.innerWidth - edit_small_modal.clientWidth) / 2);
     const edit_small_modal_body = document.querySelector('#edit_small_modal_' + post_id);
     edit_small_modal_body.style.left = edit_modal_left_now + "px";
     edit_small_modal_body.style.top = edit_modal_top_now + "px";
@@ -166,7 +166,7 @@ async function edit_texts(post_id){
     const edit_post_id = post_id
     const edit_texts_Data ={
         edit_texts_give : edit_texts.value,
-        post_id_give : edit_post_id
+        post_id_give : edit_post_id,
     }
     console.log(edit_texts_Data)
     const response = await fetch("http://192.168.0.17:8080/diary/edit", {

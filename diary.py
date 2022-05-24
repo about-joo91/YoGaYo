@@ -21,7 +21,7 @@ cors = CORS(diary, resources={r"*": {"origins" : "*"}})
 
 @diary.route('/')
 def _home():
-    return render_template('index.html')
+    return render_template('main.html')
 
 # @authrize
 @diary.route("/diary")
