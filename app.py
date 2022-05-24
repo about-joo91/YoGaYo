@@ -17,7 +17,6 @@ import jwt
 import hashlib
 import math
 import certifi
-from django.test import RequestFactory
 from io import BytesIO
 from functools import wraps
 
