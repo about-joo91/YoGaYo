@@ -46,7 +46,7 @@ class_name_list = ['adho mukha svanasana', 'adho mukha vriksasana',
 
 
 app = Flask(__name__)
-client = MongoClient('mongodb+srv://test:dkssudgktpdy@cluster0.qwbpf.mongodb.net/?retryWrites=true&w=majority', tlsCAFile=certifi.where())
+client = MongoClient('mongodb+srv://test:dkssudgktpdy@cluster0.qwbpf.mongodb.net/?retryWrites=true&w=majority', tlsCAFile=certifi.where()) 
 db = client.sparta
 fs = gridfs.GridFS(db)
 cors = CORS(app, resources={r"*": {"origins" : "*"}})
@@ -209,7 +209,9 @@ def file_upload(user):
             'acting_name': class_name,
             'user_name' : ObjectId(user.get('id'))
         }
+
         db.yoga_post.insert_one(doc)
+
 
         return jsonify({'result': 'success', 'msg' : '다이어리에서 당신의 정확도를 확인하세요!!'})
 
@@ -220,7 +222,7 @@ def file_upload(user):
 def file_show(user):
     if user is not None:
         # title은 현재 이미지타이틀이므로, 그것을 이용해서 db에서 이미지 '파일'을 가지고 옴
-        img_info = db.camp2.find_one({'title': title})
+        img_info = db.yoga_post.find_one({'title': title})
         img_binary = fs.get(img_info['img'])
         # html 파일로 넘겨줄 수 있도록, base64 형태의 데이터로 변환
         base64_data = codecs.encode(img_binary.read(), 'base64')
@@ -228,21 +230,20 @@ def file_show(user):
         # 해당 이미지의 데이터를 jinja 형식으로 사용하기 위해 넘김
         return render_template('showimg.html', img=image)
 
-
-
 #다이어리 화면
 @app.route("/diary")
 @authrize
 def diary_page(user):
     if user is not None:
         # user = {'_id' : ObjectId("62887eb015570b9eedb078f6")}
-        user_name = db.user.find_one({"_id" : user.get('_id')})
-        posts = list(db.yoga_post.find({"user_id" : user.get('_id')}))
+        user_name = db.user.find_one({"_id": ObjectId(user.get('id'))},{'password':0})
+        print(ObjectId(user.get('id')))
+        posts = list(db.yoga_post.find({"user_id" : ObjectId(user.get('id'))}))
+        print(posts)
         for post in posts:
             post['datetime'] = post['datetime'].strftime("%x")
             post['yoga_img'] = post['yoga_img'].decode('utf-8')
 
-        # 지금 내가 올린 yogapost의 fs.files의 id를 post['files']['_id']
         return render_template("diary.html",user_name = user_name, posts = posts)
 
 #다이어리 화면의 차트 구성에 필요한 acc 데이터를 받아오는 곳
@@ -251,7 +252,7 @@ def diary_page(user):
 def get_acc(user):
     if user is not None:
         # user = {'_id' : ObjectId("62887eb015570b9eedb078f6")}
-        posts = list(db.camp2.find({"user_id" : user.get('_id')}))
+        posts = list(db.yoga_post.find({"user_id" : user.get('_id')}))
         posts_acc = []
         for post in posts[0:6]:
             posts_acc.append(post.get('acc'))
