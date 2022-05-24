@@ -27,11 +27,11 @@
     </div>
     <!-- 모달 -->
     {% for post in posts %}
-    <div class="modal_background" id="modal_background_{{post._id}}" >
+    <div class="modal_background"  id="modal_background_{{post._id}}" >
         <div class="small_modal" id="small_modal_{{post._id}}">
             <div class="sm_modal_buttons">
                 <div class="sm_mds_modal_button1" onclick="open_edit_modal('{{post._id}}')">수정</div>
-                <div class="sm_mds_modal_button2" onclick="delete_post()">삭제</div>
+                <div class="sm_mds_modal_button2" onclick="delete_post('{{post._id}}')">삭제</div>
                 <div class="sm_mds_modal_button3" onclick="close_modal('{{post._id}}')">닫기</div>
             </div>
         </div>

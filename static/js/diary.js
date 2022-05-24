@@ -113,6 +113,7 @@ modal_background.addEventListener('click', function (e) {
 function open_modal(post_id) {
     const small_modal = document.getElementById('small_modal_' + post_id);
     document.getElementById('modal_background_' + post_id).style.display = "block";
+
     document.body.style.overflow = 'hidden';
     let modal_top_now = parseInt((window.innerHeight - small_modal.clientHeight) / 2)
     let modal_left_now = parseInt((window.innerWidth - small_modal.clientWidth) / 2)
@@ -189,7 +190,9 @@ async function delete_post(post_id) {
     const delete_texts_Data = {
         post_id_give: delete_post_id
     }
-    const response = await fetch(diary_base_url + "/edit", {
+
+    const response = await fetch(diary_base_url+"/delete", {
+
         method: "POST",
         headers: {
             "Content-Type": "application/json",
