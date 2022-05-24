@@ -248,6 +248,19 @@ body {
     border-radius: 5px;
 }
 
+.upload_button:hover {
+    cursor: pointer;
+}
+
+.um_preview_image {
+    width: 350px;
+    height: 365px;
+    position: fixed;
+    z-index: 5;
+    left: 18%;
+    top: 36%;
+}
+
 @keyframes pop-top-bottom {
     0% {
         transform: translate3d(0, -100%, 0);
@@ -286,6 +299,19 @@ body {
 .pum_r_content {
     display: block;
     margin-top: 10rem;
+}
+
+.pum_x_btn {
+    width: 0;
+    position: relative;
+    top: 1%;
+    left: 97%;
+    color: #83CCC0;
+    z-index: 5;
+}
+
+.pum_x_btn:hover {
+    cursor: pointer;
 }
 
 .pum_r_btn {

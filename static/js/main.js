@@ -7,6 +7,20 @@
 // alert(response["result"])             window.location.reload()         }
 // });   }
 const base_url = "http://192.168.0.23:8080"
+const file_input = document.getElementById('file');
+const preview_img_box = document.querySelector('.preview_img_box')
+file_input.addEventListener('change', function () {
+    const file_list = this.files
+    let file = file_list[0]
+    const reader = new FileReader();
+    reader.onload = () => {
+        preview_img_box.innerHTML += `
+        <img class ='um_preview_image' src= "${reader.result}">
+        `
+    }
+    reader.readAsDataURL(file)
+})
+
 
 function posting() {
     let title = document.getElementById('title').value
@@ -53,4 +67,14 @@ modal.addEventListener("click", e => {
     if (evTarget.classList.contains("upload_modal_wrapper")) {
         modal.style.display = "none"
     }
+})
+const pop_up_modal_wrapper = document.querySelector('.pop_up_modal_wrapper');
+const pum_x_btn = document.querySelector('.pum_x_btn');
+pum_x_btn.addEventListener('click', function () {
+    pop_up_modal_wrapper.style.display = 'none'
+})
+const pum_r_btn = document.querySelector('.pum_r_btn');
+pum_r_btn.addEventListener('click', function () {
+    pop_up_modal_wrapper.style.display = 'none'
+    modal.style.display = 'flex'
 })
