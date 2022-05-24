@@ -1,4 +1,4 @@
-const diary_base_url = "http://192.168.0.17:8080/diary";
+const diary_base_url = "http://192.168.0.23:8080/diary";
 
 
 // 로딩이 완료 된 후, 데이터를 바로 가져옴
