@@ -1,31 +1,25 @@
-from encodings import utf_8
-from flask import Blueprint, jsonify, Flask, render_template, request, Response, abort
-from datetime import date, datetime, timedelta
+from flask import jsonify, Flask, render_template, request, Response, abort
+from datetime import datetime, timedelta
 from pymongo import MongoClient
-import gridfs
 import codecs
 import tensorflow as tf
 import json
-import torchvision.transforms as T
-import torchvision
 from PIL import Image
 import numpy as np
 from bson.objectid import ObjectId
 from flask_cors import CORS
 import base64
-import bson
-from bson.json_util import loads, dumps
 import jwt
 import hashlib
 import math
 import certifi
+import random
 from io import BytesIO
 from functools import wraps
+import os
 
 
 model = tf.keras.models.load_model('static/model/model.h5')
-seg_model = torchvision.models.detection.maskrcnn_resnet50_fpn(pretrained=True)
-seg_model.eval()
 class_name_list = ['adho mukha svanasana', 'adho mukha vriksasana',
                    'ananda balasana', 'anantasana', 'anjaneyasana',
                    'ardha chandrasana', 'ardha matsyendrasana', 'ardha pincha mayurasana',
@@ -48,7 +42,6 @@ class_name_list = ['adho mukha svanasana', 'adho mukha vriksasana',
 app = Flask(__name__)
 client = MongoClient('mongodb+srv://test:dkssudgktpdy@cluster0.qwbpf.mongodb.net/?retryWrites=true&w=majority', tlsCAFile=certifi.where()) 
 db = client.sparta
-fs = gridfs.GridFS(db)
 cors = CORS(app, resources={r"*": {"origins" : "*"}})
 
 SECRET_KEY = 'YoGaYo'
@@ -174,7 +167,18 @@ def check():
 @authrize
 def home(user):
     if user is not None:
-        return render_template('main.html')
+        posts = list(db.yoga_post.find({'user_name' : ObjectId(user.get('id'))}))
+        recent_thr_pose = []
+        for post in posts[:4]:
+            recent_thr_pose.append(post.get('acting_name'))
+        recommend_poses = list(filter(lambda x: x not in recent_thr_pose, class_name_list))
+        ran_num = random.randrange(0, len(recommend_poses)-1)
+        url = '../static/images/class/'+ recommend_poses[ran_num] + '/img.png'
+        doc = {
+            'class_name' : recommend_poses[ran_num],
+            'url' : url,
+        }
+        return render_template('main.html', recommend = doc)
 
 #메인 화면에서 데이터를 담는 곳
 
@@ -237,8 +241,10 @@ def diary_page(user):
     if user is not None:
         # user = {'_id' : ObjectId("62887eb015570b9eedb078f6")}
         user_name = db.user.find_one({"_id": ObjectId(user.get('id'))},{'password':0})
+
         # posts = list(db.yoga_post.find({"user_id" : ObjectId(user.get('id'))}))
         posts = list(db.yoga_post.find({"user_id" : user.get('_id')}))
+
         for post in posts:
             post['datetime'] = post['datetime'].strftime("%x")
             post['yoga_img'] = post['yoga_img'].decode('utf-8')
