@@ -108,9 +108,12 @@ img {
 
 /* 회원 질문 */
 .ml_ib_question{
+    display: flex;
+    flex-direction: row;
     font-size: 20px;
     font-weight: normal;
     margin-top: 50px;
+    margin-left: 77px;
 }
 
 /* 회원가입 클릭 */
@@ -118,8 +121,10 @@ img {
     color: #0F6AF2;
     font-size: 20px;
     font-weight: normal;
-    margin-top: 50px;
     text-decoration-line:none;
+}
+.ml_ib_join:hover{
+    cursor: pointer;
 }
 
 /* 박스쉐도우 

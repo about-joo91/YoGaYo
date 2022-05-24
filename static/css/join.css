@@ -129,18 +129,23 @@ img {
 
 /* 회원질문 */
 .mj_jb_question{
-    font-size: 24px;
+    display: flex;
+    flex-direction: row;
+    font-size: 20px;
     font-weight: normal;
     margin-top: 50px;
+    margin-left: 108px;
 }
 
 /* 로그인 클릭 */
 .mj_jb_login{
     color: #0F6AF2;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: normal;
-    margin-top: 50px;
     text-decoration-line:none;
+}
+.mj_jb_login:hover{
+    cursor: pointer;
 }
 
 /* 박스쉐도우 

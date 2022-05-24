@@ -326,6 +326,10 @@ textarea{
     /* background-image: url('https://img1.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202105/25/muscleandfitness/20210525035809240flpl.jpg'); */
     background-size: cover;
 }
+.diary_post_img{
+    width: 100%;
+    height: 100%;
+}
 .dr_up_cd_pt_act_name{
     width: 100%;
     height: 17%;

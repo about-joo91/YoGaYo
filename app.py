@@ -185,26 +185,35 @@ def file_upload(user):
         title_receive = request.form['title_give']
         file = request.files['file_give']
         # gridfs 활용해서 이미지 분할 저장
+        buffered = BytesIO()
+        extension = file.filename.split('.')[-1]
+        format = 'JPEG' if extension.lower() == 'jpg' else extension.upper()
+
         img = Image.open(file)
+        img.save(buffered, format)
+        image_base64 = base64.b64encode(buffered.getvalue())
         img = img.convert("RGB")
+
         resize_img = img.resize((224, 224))
-        fs_image_id = fs.put(file)
         input_arr = tf.keras.preprocessing.image.img_to_array(resize_img)
         prediction = model.predict(np.array([input_arr]))
         class_num = np.argmax(prediction)
         acc = str(math.floor(prediction[0][class_num] * 100))
         class_name = class_name_list[class_num]
+
         doc = {
             'content': title_receive,
-            'yoga_img': fs_image_id,
+            'yoga_img': image_base64,
             'datetime': datetime.utcnow(),
             'acc': acc,
             'acting_name': class_name,
             'user_name' : ObjectId(user.get('id'))
         }
-        db.yoga_.insert_one(doc)
 
-        return jsonify({'result': 'success'})
+        db.yoga_post.insert_one(doc)
+
+
+        return jsonify({'result': 'success', 'msg' : '다이어리에서 당신의 정확도를 확인하세요!!'})
 
 
 # 주소에다가 /fileshow/이미지타이틀 입력하면 그 이미지타이틀을 title이라는 변수로 받아옴
@@ -232,25 +241,9 @@ def diary_page(user):
         posts = list(db.yoga_post.find({"user_id" : ObjectId(user.get('id'))}))
         print(posts)
         for post in posts:
-            posts_fs_files = list(db.fs.files.find({"_id" : post['yoga_img']}))
             post['datetime'] = post['datetime'].strftime("%x")
-            # post['files'] = posts_fs_files
-            for posts_fs_file in posts_fs_files:
-                fs_chunks_one = db.fs.chunks.find_one({'files_id' : posts_fs_file['_id']})
-                data = loads(fs_chunks_one['data'].read())
-                base64_data = codecs.encode(data, 'base64')
-                print(fs_chunks_one)
-                print(base64_data)
-                # decoded_img_data = bson.BSON(undecoded_img_data).decode()
-                # print("123133",base64_data.decode('utf-8'))
-                # post['img'] = base64_data.decode('utf-8')
-                # post['img'] 안에 data에 대한 정보가 있음
-                # uft-8 디코드를 진행 해야함
-                # base64_data = codecs.encode(decoded_img_data, 'base64')
-                # post['img'] = base64_data.decode('utf-8')
-                # print("post['img'] : ",post['img'])
+            post['yoga_img'] = post['yoga_img'].decode('utf-8')
 
-        # 지금 내가 올린 yogapost의 fs.files의 id를 post['files']['_id']
         return render_template("diary.html",user_name = user_name, posts = posts)
 
 #다이어리 화면의 차트 구성에 필요한 acc 데이터를 받아오는 곳
@@ -290,13 +283,13 @@ def edit_post(user):
 def delete_post(user):
     if user is not None:
         # user = {'_id' : ObjectId("62887eb015570b9eedb078f6")}
-        posts = list(db.yoga_post.find({"user_id" : user.get('_id')}))
+        # posts = list(db.yoga_post.find({"user_id" : user.get('_id')}))
         data = json.loads(request.data)
         post_id = {
             'post_id' : data.get('post_id_give', None)
         }
-        print("delete post id : ",ObjectId(post_id.get('post_id')))
-        # db.yoga_post.delete({'_id' :ObjectId(post_id.get('post_id')) })
+        db.yoga_post.delete_one({'_id' :ObjectId(post_id.get('post_id'))})
+
         return jsonify({"result" : "success", "msg" : "삭제되었습니다!"})
 
 if __name__ == '__main__':
