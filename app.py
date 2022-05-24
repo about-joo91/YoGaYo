@@ -18,12 +18,11 @@ import jwt
 import hashlib
 import math
 import certifi
-from django.test import RequestFactory
 from io import BytesIO
 from functools import wraps
 
 
-model = tf.keras.models.load_model('static/model/model.h5')
+model = tf.keras.models.load_model('/Users/yeomgiho/Desktop/sparta/projects/YOGAYO/YoGaYo/static/model/model.h5')
 seg_model = torchvision.models.detection.maskrcnn_resnet50_fpn(pretrained=True)
 seg_model.eval()
 class_name_list = ['adho mukha svanasana', 'adho mukha vriksasana',
@@ -46,9 +45,10 @@ class_name_list = ['adho mukha svanasana', 'adho mukha vriksasana',
 
 
 app = Flask(__name__)
-# client = MongoClient('mongodb+srv://test:sparta@cluster0.alyd7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', tlsCAFile=certifi.where())
 
-client = MongoClient( 'mongodb+srv://test:dkssudgktpdy@cluster0.qwbpf.mongodb.net/?retryWrites=true&w=majority')
+
+client = MongoClient( 'mongodb+srv://@cluster0.qwbpf.mongodb.net/?retryWrites=true&w=majority', tlsCAFile=certifi.where()) 
+
 db = client.sparta
 fs = gridfs.GridFS(db)
 cors = CORS(app, resources={r"*": {"origins" : "*"}})

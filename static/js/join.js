@@ -4,7 +4,7 @@ const user_password = document.querySelector('#user_password');
 const pattern = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
 
 // 자기 주소 작성할 것
-const back_url = 'http://192.168.0.17:8080';
+const back_url = 'http://192.168.0.23:8080';
 
 async function sign_up() {
     let user_email_value = user_email.value;
