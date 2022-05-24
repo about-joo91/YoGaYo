@@ -54,6 +54,7 @@ body {
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.18);
 }
+
 #modal .upload_modal {
     /* background: rgba( 69, 139, 197, 0.70 );
     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
@@ -68,7 +69,7 @@ body {
     padding: 10px; */
     border-radius: 15px;
     position: fixed;
-    height: 350px ;
+    height: 350px;
     width: 350px;
     left: 50%;
     top: 50%;
@@ -90,11 +91,13 @@ body {
     justify-content: center;
     text-shadow: 1px 1px 2px gray;
     color: #83CCC0;
-    
+
 }
+
 #modal .title h2 {
     display: inline;
 }
+
 #modal .close-area {
     /* position: relative; */
     display: inline;
@@ -105,6 +108,7 @@ body {
     text-shadow: 1px 1px 2px gray;
     color: white;
 }
+
 /* #drag .upload-box{
     display: flex;
     justify-content: center;
@@ -116,11 +120,11 @@ body {
     margin-left: 10px;
     margin-bottom: 10px;
     /* border: 1px solid gray; */
-    /* box-shadow: 2px 3px 9px hsl(0, 0%, 47%); 
+/* box-shadow: 2px 3px 9px hsl(0, 0%, 47%); 
     padding:10px;
 } */
 
-.input_title{
+.input_title {
     text-align: center;
     display: block;
     margin: 0 auto;
@@ -129,25 +133,26 @@ body {
     width: 280px;
     height: 50px;
 }
-.select_file{
+
+.select_file {
     display: block;
     margin: 0 auto;
     height: 30px;
-    width: 200px; 
+    width: 200px;
     border-radius: 3px;
 }
 
-.button-box{
+.button-box {
     display: flex;
     justify-content: center;
 }
 
-.upload_button{
+.upload_button {
     margin-left: 10px;
     margin-top: 75px;
     margin-bottom: 20px;
     height: 30px;
-    width: 60px; 
+    width: 60px;
     border: 0;
     border-radius: 5px;
 }

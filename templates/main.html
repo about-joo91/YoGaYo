@@ -10,6 +10,34 @@
 </head>
 
 <body>
+    <div id="modal" class="upload_modal_wrapper">
+        <div class="upload_modal">
+            <div id="drag" class="um_body">
+                <br>
+                <div class="close-area">X</div>
+                <div class="title">
+                    <h1>나의 요가 자세</h1>
+                </div>
+                <br>
+                <div class="file-upload">
+                    <div class="upload-box">
+                        <div class="input_box">
+                            <input class="input_title" type="text" id="title" placeholder="업로드할 이미지 제목을 입력해주세요">
+                            <br>
+                            <br>
+                            <input class="select_file" type="file" id="file" class="btn-upload">
+                        </div>
+                    </div>
+                    <div class="button-box">
+                        <button class="upload_button" onclick="posting()">업로드</button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
     <div class="main_header">
         <div class="mh_contents">
             <div class="mh_c_icon">
@@ -20,7 +48,7 @@
     <div class="main_upper_card">
         <img class="muc_main_image" src="../static/images/background.png">
         <div class="muc_main_upper_content">당신의 자세가 정확한지<br>확인하세요</div>
-        <button class="muc_main_upper_button">확인하기</button>
+        <button class="muc_main_upper_button" id="modal_button">확인하기</button>
     </div>
 
     <div class="middle_picture_card">
@@ -46,5 +74,6 @@
     <div class="under_diary_card"></div>
     <div class="main_footer"></div>
 </body>
+<script src="/static/js/main.js"></script>
 
 </html>
