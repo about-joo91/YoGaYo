@@ -9,27 +9,28 @@ html {
 
 body {
     height: 100vh;
-    width: 100vw;
+    width: 100vw;   
+    overflow-x: hidden;
 }
 
 .main_header {
     width: 100%;
-    height: 5%;
-    background: rgba(248, 248, 248);
+    height: 45.21px;
+    background: rgb(241, 241, 241);
     display: flex;
     align-items: center;
 }
 
 .mh_contents {
     margin-left: 14%;
-    background: rgba(248, 248, 248);
+    background: rgb(241, 241, 241);
     display: flex;
     align-items: center;
     height: 100%;
 }
 
 .mh_c_content {
-    background: rgba(248, 248, 248);
+    background: rgb(241, 241, 241);
     margin-left: 15px;
     font-family: 'Julius Sans One';
     font-style: normal;
@@ -54,11 +55,12 @@ body {
 }
 
 .muc_main_image {
-    width: 100%;
+    width: 95%;
     height: auto;
     max-height: 100vh;
     position: relative;
     object-fit: cover;
+    margin-left: 51px;
 }
 
 .muc_main_upper_content {
@@ -87,12 +89,12 @@ body {
 
 .middle_picture_card {
     height: 100vh;
-    width: 100%;
+    width: 98%;
     display: flex;
 }
 
 .m_pc_left {
-    width: 55%;
+    width: 50%;
     height: 100%;
     display: flex;
 }
@@ -117,7 +119,7 @@ body {
 
 .m_pc_right {
     background-color: white;
-    width: 45%;
+    width: 50%;
     height: 100%;
     display: flex;
 }
@@ -130,7 +132,7 @@ body {
 }
 
 .m_pc_r_c_img {
-    max-width: 55rem;
+    max-width: 45rem;
     height: auto;
     position: relative;
     top: -30%;
