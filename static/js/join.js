@@ -1,7 +1,6 @@
 const user_email = document.querySelector('#user_email');
 const nick_name = document.querySelector('#nick_name');
 const user_password = document.querySelector('#user_password');
-const pattern = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
 
 // 자기 주소 작성할 것
 const back_url = 'http://192.168.0.23:8080';
@@ -15,12 +14,6 @@ async function sign_up() {
         alert("이메일 주소를 입력하셔요")
         user_email.focus();
         return;
-    }
-
-    if (pattern.test(user_email_value)) {
-        alert("이메일 형식이 올바르지 않으셔요")
-        user_email.focus();
-        return pattern.test(obj.value);
     }
  
     if (nick_name_value == "") {
