@@ -46,13 +46,7 @@ class_name_list = ['adho mukha svanasana', 'adho mukha vriksasana',
 
 
 app = Flask(__name__)
-<<<<<<< HEAD
-
-
-client = MongoClient('mongodb+srv://test:sparta@cluster0.alyd7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', tlsCAFile=certifi.where())
-=======
 client = MongoClient( 'mongodb+srv://test:dkssudgktpdy@cluster0.qwbpf.mongodb.net/?retryWrites=true&w=majority', tlsCAFile=certifi.where()) 
->>>>>>> fead267ebcd3399205839eab3c87b0955e788089
 db = client.sparta
 fs = gridfs.GridFS(db)
 cors = CORS(app, resources={r"*": {"origins" : "*"}})
@@ -191,19 +185,10 @@ def file_upload(user):
         title_receive = request.form['title_give']
         file = request.files['file_give']
         # gridfs 활용해서 이미지 분할 저장
-<<<<<<< HEAD
         img = Image.open(file)
         img = img.convert("RGB")
         resize_img = img.resize((224, 224))
         fs_image_id = fs.put(file)
-=======
-        #fs.put girdfs를 하건데
-        print("file : ",file)
-        fs_image_id = fs.put(file)
-        print("fs_image_id : ",fs_image_id)
-        img = Image.open(file)
-        resize_img = img.resize((224, 224))
->>>>>>> fead267ebcd3399205839eab3c87b0955e788089
         input_arr = tf.keras.preprocessing.image.img_to_array(resize_img)
         prediction = model.predict(np.array([input_arr]))
         class_num = np.argmax(prediction)
@@ -245,7 +230,6 @@ def diary_page(user):
     if user is not None:
         # user = {'_id' : ObjectId("62887eb015570b9eedb078f6")}
         user_name = db.user.find_one({"_id" : user.get('_id')})
-<<<<<<< HEAD
         posts = list(db.yoga_post.find({"user_id" : user.get('_id')}))
         for post in posts:
             posts_fs_files = list(db.fs.files.find({"_id" : post['yoga_img']}))
@@ -268,16 +252,6 @@ def diary_page(user):
 
         # 지금 내가 올린 yogapost의 fs.files의 id를 post['files']['_id']
         return render_template("diary.html",user_name = user_name, posts = posts)
-=======
-        posts = list(db.camp2.find({"user_id" : user.get('_id')}))
-        #리스트 형식이라...
-        for post in posts:
-            posts_fs_files = list(db.fs.files.find({"_id" : post['yoga_img']}))
-            post['datetime'] = post['datetime'].strftime("%x")
-            post['files'] = posts_fs_files
-        print("posts : ", posts)
-        return render_template("diary.html",user_name = user_name, posts = posts )
->>>>>>> fead267ebcd3399205839eab3c87b0955e788089
 
 #다이어리 화면의 차트 구성에 필요한 acc 데이터를 받아오는 곳
 @app.route("/diary/acc")
