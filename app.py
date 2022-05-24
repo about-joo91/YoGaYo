@@ -1,10 +1,10 @@
+from encodings import utf_8
 from flask import Blueprint, jsonify, Flask, render_template, request, Response, abort
 from datetime import date, datetime, timedelta
 from pymongo import MongoClient
 import gridfs
 import codecs
 import tensorflow as tf
-import torch
 import json
 import torchvision.transforms as T
 import torchvision
@@ -13,6 +13,8 @@ import numpy as np
 from bson.objectid import ObjectId
 from flask_cors import CORS
 import base64
+import bson
+from bson.json_util import loads, dumps
 import jwt
 import hashlib
 import math
@@ -21,7 +23,7 @@ from io import BytesIO
 from functools import wraps
 
 
-model = tf.keras.models.load_model('/Users/yeomgiho/Desktop/sparta/projects/YOGAYO/YoGaYo/static/model/model.h5')
+model = tf.keras.models.load_model('static/model/model.h5')
 seg_model = torchvision.models.detection.maskrcnn_resnet50_fpn(pretrained=True)
 seg_model.eval()
 class_name_list = ['adho mukha svanasana', 'adho mukha vriksasana',
@@ -183,23 +185,15 @@ def file_upload(user):
         title_receive = request.form['title_give']
         file = request.files['file_give']
         # gridfs 활용해서 이미지 분할 저장
-        #fs.put girdfs를 하건데
-        print("file : ",file)
-        fs_image_id = fs.put(file)
-        print("fs_image_id : ",fs_image_id)
         img = Image.open(file)
+        img = img.convert("RGB")
         resize_img = img.resize((224, 224))
+        fs_image_id = fs.put(file)
         input_arr = tf.keras.preprocessing.image.img_to_array(resize_img)
         prediction = model.predict(np.array([input_arr]))
         class_num = np.argmax(prediction)
         acc = str(math.floor(prediction[0][class_num] * 100))
-        # acc = round(prediction[0][class_num], 3)
         class_name = class_name_list[class_num]
-        # print("datetime.utcnow() : ",datetime.utcnow())
-        # print("class_name : ",class_name)
-        # print("fs_image_id : ",fs_image_id)
-        # db 추가
-        #
         doc = {
             'content': title_receive,
             'yoga_img': fs_image_id,
@@ -236,14 +230,28 @@ def diary_page(user):
     if user is not None:
         # user = {'_id' : ObjectId("62887eb015570b9eedb078f6")}
         user_name = db.user.find_one({"_id" : user.get('_id')})
-        posts = list(db.camp2.find({"user_id" : user.get('_id')}))
-        #리스트 형식이라...
+        posts = list(db.yoga_post.find({"user_id" : user.get('_id')}))
         for post in posts:
             posts_fs_files = list(db.fs.files.find({"_id" : post['yoga_img']}))
             post['datetime'] = post['datetime'].strftime("%x")
-            post['files'] = posts_fs_files
-        print("posts : ", posts)
-        return render_template("diary.html",user_name = user_name, posts = posts )
+            # post['files'] = posts_fs_files
+            for posts_fs_file in posts_fs_files:
+                fs_chunks_one = db.fs.chunks.find_one({'files_id' : posts_fs_file['_id']})
+                undecoded_img_data = fs_chunks_one['data']
+                json_fs_chunks_one = dumps(undecoded_img_data)
+                base64_data = codecs.encode(loads(json_fs_chunks_one), 'base64')
+                # decoded_img_data = bson.BSON(undecoded_img_data).decode()
+                # print("123133",base64_data.decode('utf-8'))
+                post['img'] = base64_data.decode('utf-8')
+                
+                # post['img'] 안에 data에 대한 정보가 있음
+                # uft-8 디코드를 진행 해야함
+                # base64_data = codecs.encode(decoded_img_data, 'base64')
+                # post['img'] = base64_data.decode('utf-8')
+                # print("post['img'] : ",post['img'])
+
+        # 지금 내가 올린 yogapost의 fs.files의 id를 post['files']['_id']
+        return render_template("diary.html",user_name = user_name, posts = posts)
 
 #다이어리 화면의 차트 구성에 필요한 acc 데이터를 받아오는 곳
 @app.route("/diary/acc")

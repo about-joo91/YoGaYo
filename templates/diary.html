@@ -77,8 +77,9 @@
                     <i class="bi bi-three-dots dr_up_cd_modal_button" onclick="open_modal('{{post._id}}')" ></i>
                 </div>
                 <div class="dr_up_cd_post">
-                    <div class="dr_up_cd_pt_img"></div>
-                    
+                    <div class="dr_up_cd_pt_img">
+                    <img src="data:image/jpeg;base64,{{post.get('img')}}"></div>
+                        
                     <div class="dr_up_cd_pt_act_name">
                         <div class="dr_up_cd_pt_ac_acc">정확도 <p id="acc">({{post.get('acc')}}%)</p></div>
                         <!-- <div class="acc_hover">
