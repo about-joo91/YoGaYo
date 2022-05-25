@@ -74,8 +74,11 @@ window.onload = async function get_acc() {
     if (per > 0) {
         dr_fighting.innerHTML = "Comment : 축하해요 어제보다" + per + "%만큼 잘하셨어요!!ㅎㅎ";
     }
-    else {
+    else if(per < 0) {
         dr_fighting.innerHTML = "Comment : 어제보다 " + per + "%만큼 내려갔네요 ㅠㅠ 분발하셔요"
+    }
+    else {
+        dr_fighting.innerHTML = "아직 데이터가 부족합니다!! 더 많이 올려주세요!!"
     }
     //여기는 today_post리스트 점수, 자세같은거 다루는 곳 
 
@@ -200,9 +203,15 @@ async function delete_post(post_id) {
         body: JSON.stringify(delete_texts_Data)
     })
     const data = await response.json();
-    alert(data['msg'])
-    window.location.replace("/diary")
-}
+    if (data['result'] == "success"){
+        alert(data['msg'])
+        window.location.replace("/diary")
+    }
+    else {
+        alert("지워지지 않았습니다!!")
+    }
+    }
+    
 function go_to_home(){
     window.location.replace('/')
 }

@@ -31,9 +31,15 @@ async function login() {
     });
 
     const data = await response.json();
-    alert(data['msg']);
-    $.cookie('mytoken', data['token'], { path: '/' });
-    window.location.replace("/")
+    if (data['result'] == "success"){
+        alert(data['msg']);
+        $.cookie('mytoken', data['token'], { path: '/' });
+        window.location.replace("/")
+    }
+    else {
+        alert(data['msg'])
+    }
+    
 }
 function go_sign_in() {
     window.location.replace("/sign_up_page")

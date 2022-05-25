@@ -267,8 +267,8 @@ body {
     height: 365px;
     position: fixed;
     z-index: 5;
-    left: 18%;
-    top: 36%;
+    left: 22%;
+    top: 30.8%;
 }
 
 @keyframes pop-top-bottom {
