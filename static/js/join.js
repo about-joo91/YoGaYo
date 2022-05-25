@@ -40,8 +40,13 @@ async function sign_up() {
     });
 
     const data = await response.json();
-    alert(data['msg']);
-    window.location.replace("/login_page")
+    if (data['result'] == "success"){
+        alert(data['msg']);
+        window.location.replace("/login_page")
+    }
+    else {
+        alert(data['msg'])
+    }
 }
 
 const join_button = document.querySelector('#join_button');

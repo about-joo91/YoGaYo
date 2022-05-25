@@ -235,7 +235,7 @@ def file_show(user):
         return render_template('showimg.html', img=image)
 
 #다이어리 화면
-@app.route("/diary") 
+@app.route("/diary")
 @authrize
 def diary_page(user):
     if user is not None:
@@ -243,12 +243,11 @@ def diary_page(user):
         user_name = db.user.find_one({"_id": ObjectId(user.get('id'))},{'password':0})
 
         # posts = list(db.yoga_post.find({"user_id" : ObjectId(user.get('id'))}))
-        posts = list(db.yoga_post.find({"user_id" : user.get('_id')}))
-
+        posts = list(db.yoga_post.find({"user_name" : ObjectId(user.get('id'))}))
         for post in posts:
             post['datetime'] = post['datetime'].strftime("%x")
             post['yoga_img'] = post['yoga_img'].decode('utf-8')
-        posts = sorted(posts, key=lambda x:x['datetime'], reverse=True)
+
         return render_template("diary.html",user_name = user_name, posts = posts)
 
 #다이어리 화면의 차트 구성에 필요한 acc 데이터를 받아오는 곳
@@ -257,7 +256,7 @@ def diary_page(user):
 def get_acc(user):
     if user is not None:
         # user = {'_id' : ObjectId("62887eb015570b9eedb078f6")}
-        posts = list(db.yoga_post.find({"user_id" : user.get('_id')}))
+        posts = list(db.yoga_post.find({"user_name" : ObjectId(user.get('id'))}))
         posts_acc = []
         for post in posts[0:6]:
             posts_acc.append(post.get('acc'))
