@@ -235,7 +235,7 @@ def file_show(user):
         return render_template('showimg.html', img=image)
 
 #다이어리 화면
-@app.route("/diary")
+@app.route("/diary") 
 @authrize
 def diary_page(user):
     if user is not None:
@@ -248,7 +248,7 @@ def diary_page(user):
         for post in posts:
             post['datetime'] = post['datetime'].strftime("%x")
             post['yoga_img'] = post['yoga_img'].decode('utf-8')
-        posts = sorted(posts, key=lambda x:x['datetime'])
+        posts = sorted(posts, key=lambda x:x['datetime'], reverse=True)
         return render_template("diary.html",user_name = user_name, posts = posts)
 
 #다이어리 화면의 차트 구성에 필요한 acc 데이터를 받아오는 곳
