@@ -244,20 +244,24 @@ def diary_page(user):
 
         # posts = list(db.yoga_post.find({"user_id" : ObjectId(user.get('id'))}))
         posts = list(db.yoga_post.find({"user_name" : ObjectId(user.get('id'))}))
+        posts = sorted(posts, key=lambda x:x['datetime'], reverse=True)
         for post in posts:
             post['datetime'] = post['datetime'].strftime("%x")
             post['yoga_img'] = post['yoga_img'].decode('utf-8')
+
+        
 
         return render_template("diary.html",user_name = user_name, posts = posts)
 
 #다이어리 화면의 차트 구성에 필요한 acc 데이터를 받아오는 곳
 @app.route("/diary/acc")
-@authrize
+@authrize   
 def get_acc(user):
     if user is not None:
         # user = {'_id' : ObjectId("62887eb015570b9eedb078f6")}
         posts = list(db.yoga_post.find({"user_name" : ObjectId(user.get('id'))}))
         posts_acc = []
+        posts = sorted(posts, key=lambda x:x['datetime'], reverse=True)
         for post in posts[0:6]:
             posts_acc.append(post.get('acc'))
         return jsonify({"result" : "success", "posts_acc" : posts_acc})

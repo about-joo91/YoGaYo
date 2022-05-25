@@ -15,16 +15,16 @@ window.onload = async function get_acc() {
     new Chart(document.getElementById("myChart"), {
         type: 'line',
         data: {
-            labels: ['오늘', '1일전', '2일전', '3일전', '4일전', '5일전'],
+            labels: ['5일전','4일전','3일전','2일전','1일전','오늘'],
             datasets: [{
                 label: '테스트 데이터셋',
                 data: [
-                    posts_acc[0],
-                    posts_acc[1],
-                    posts_acc[2],
-                    posts_acc[3],
-                    posts_acc[4],
                     posts_acc[5],
+                    posts_acc[4],
+                    posts_acc[3],
+                    posts_acc[2],
+                    posts_acc[1],
+                    posts_acc[0],
                 ],
                 borderColor: '#83ccc0',
                 // backgroundColor: "rgba(24, 21, 14, 0.5)",
