@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://d3js.org/d3.v5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href={{url_for('post_bp.static', filename='css/diary.css')}}>
+
+    <script></script>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <div class="main_header">
+        <div class="mh_contents" onclick="go_to_home()">
+          <div class="mh_c_icon"></div>
+          <div class="mh_c_content">YoGaYo</div>
+        </div>
+      </div>
+      <!-- 모달 -->
+      {% for post in posts %}
+        <div class="modal_background" id="modal_background_{{post._id}}">
+          <div class="small_modal" id="small_modal_{{post._id}}">
+            <div class="sm_modal_buttons">
+              <div class="sm_mds_modal_button1" onclick="open_edit_modal('{{post._id}}')">수정</div>
+              <div class="sm_mds_modal_button2" onclick="delete_post('{{post._id}}')">삭제</div>
+              <div class="sm_mds_modal_button3" onclick="close_modal('{{post._id}}')">닫기</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 여기부터 수정 모달-->
+        <div class="edit_modal_background" id="edit_modal_background_{{post._id}}">
+          <div class="edit_small_modal" id="edit_small_modal_{{post._id}}">
+            <div class="esm_header">코멘트 수정하기</div>
+            <div class="esm_body">
+              <form>
+                <textarea id="edit_text_{{post._id}}" class="edit_text" cols="70" rows="10">{{post.content}}</textarea>
+              </form>
+            </div>
+            <div class="esm_button">
+              <button class="esm_btn_buttton" onclick="edit_texts('{{post._id}}')">수정하기</button>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+
+      <div class="diary">
+        {% if user_name is not none %}
+          <div class="dr_user_diary">{{user_name.get('nick')}}의 다이어리</div>
+        {% endif %}
+        <div class="dr_user_plot">
+          <!-- <canvas class="bar-chart" width="700" height="200" id="bar-chart"></canvas> -->
+          <canvas id="myChart" class="mychart"></canvas>
+          <div class="chart_data"></div>
+        </div>
+        <div class="dr_fighting" id="dr_fighting">comment</div>
+        {% for post in posts %}
+          <div class="dr_user_posts">
+            <div class="dr_up_posts_card">
+              <div class="dr_up_dc_data_modal">
+
+                <div class="two_data_div">
+                  <div class="dr_up_cd_date">{{post.get('datetime')}}</div>
+                  <div class="dr_up_cd_date2">오늘의 자세 -
+                    {{post.get('acting_name')}}</div>
+                </div>
+                <i class="bi bi-three-dots dr_up_cd_modal_button" onclick="open_modal('{{post._id}}')"></i>
+              </div>
+              <div class="dr_up_cd_post">
+                <div class="dr_up_cd_pt_img">
+                  <img class="diary_post_img" src="data:image/jpeg;base64,{{post.get('yoga_img')}}"></div>
+
+                <div class="dr_up_cd_pt_act_name">
+                  <div class="dr_up_cd_pt_ac_acc">정확도
+                    <p id="acc">({{post.get('acc')}}%)</p>
+                  </div>
+                  <!-- <div class="acc_hover"> <div class="dr_up_cd_pt_ac_acc">정확도 <p id="acc">({{post.get('acc')}}%)</p></div> </div> -->
+                  <!-- <div class="dr_up_cd_pt_an_comment">오늘의 요가 자세 </div> <div class="dr_up_cd_pt_an_name">{{post.get('acting_name')}}</div> -->
+                </div>
+                <!-- <div class="dr_up_cd_pt_acccheck"> <div class="dr_up_cd_pt_ac_check">zzz</div> </div> -->
+                <div class="dr_up_cd_pt_comment">오늘의 한마디 :
+                  {{post.get('content')}}</div>
+
+              </div>
+            </div>
+
+          </div>
+        {% endfor %}
+
+      </div>
+    </div>
+  </body>
+  <script src={{url_for('post_bp.static', filename='js/diary.js')}}></script>
+
+</html>
