@@ -6,7 +6,7 @@
 // processData: false,         success: function (response) {
 // alert(response["result"])             window.location.reload()         }
 // });   }
-const base_url = "http://192.168.0.17:8080"
+const base_url = "http://192.168.45.41:8080"
 const file_input = document.getElementById('file');
 const preview_img_box = document.querySelector('.preview_img_box')
 file_input.addEventListener('change', function () {
@@ -81,6 +81,6 @@ pum_r_btn.addEventListener('click', function () {
     modal.style.display = 'flex'
     document.body.style.overflow = 'hidden';
 })
-function go_to_home(){
+function go_to_home() {
     window.location.replace("/")
 }

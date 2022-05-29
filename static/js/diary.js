@@ -1,4 +1,4 @@
-const diary_base_url = "http://192.168.0.17:8080/diary";
+const diary_base_url = "http://192.168.45.41:8080/diary";
 
 
 // 로딩이 완료 된 후, 데이터를 바로 가져옴
@@ -194,7 +194,7 @@ async function delete_post(post_id) {
         post_id_give: delete_post_id
     }
 
-    const response = await fetch(diary_base_url+"/delete", {
+    const response = await fetch(diary_base_url + "/delete", {
 
         method: "POST",
         headers: {
