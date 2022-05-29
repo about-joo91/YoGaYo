@@ -190,22 +190,23 @@ def diary_page(user):
     """ 다이어리 화면 """
     if user:
         user_name = db.user.find_one({"_id": ObjectId(user.get('id'))},{'password':0})
-        posts = list(db.yoga_post.find({"user_id" : user.get('_id')}))
-
+        posts = list(db.yoga_post.find({"user_name" : ObjectId(user.get('id'))}))
+        
         for post in posts:
             post['datetime'] = post['datetime'].strftime("%x")
             post['yoga_img'] = post['yoga_img'].decode('utf-8')
-
         posts = sorted(posts, key=lambda x:x['datetime'], reverse=True)
+        
         return render_template("diary.html",user_name = user_name, posts = posts)
     return jsonify({'result' : 'fail', 'msg': '로그인을 하셔요'})
 
 @app.route("/diary/acc")
-@authrize
+@authrize   
 def get_acc(user):
     """ 그래프화면에 넣어줄 정확도를 불러옴 """
     if user:
-        posts = list(db.yoga_post.find({"user_id" : user.get('_id')}))
+        posts = list(db.yoga_post.find({"user_name" : user.get('_id')}))
+        posts = sorted(posts, key=lambda x:x['datetime'], reverse=True)
         posts_acc = [post.get('acc') for post in posts[0:6]]
         return jsonify({"result" : "success", "posts_acc" : posts_acc})
     return jsonify({'result' : 'fail', 'msg': '로그인을 하셔요'})

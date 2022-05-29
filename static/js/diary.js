@@ -15,16 +15,16 @@ window.onload = async function get_acc() {
     new Chart(document.getElementById("myChart"), {
         type: 'line',
         data: {
-            labels: ['오늘', '1일전', '2일전', '3일전', '4일전', '5일전'],
+            labels: ['5일전','4일전','3일전','2일전','1일전','오늘'],
             datasets: [{
                 label: '테스트 데이터셋',
                 data: [
-                    posts_acc[0],
-                    posts_acc[1],
-                    posts_acc[2],
-                    posts_acc[3],
-                    posts_acc[4],
                     posts_acc[5],
+                    posts_acc[4],
+                    posts_acc[3],
+                    posts_acc[2],
+                    posts_acc[1],
+                    posts_acc[0],
                 ],
                 borderColor: '#83ccc0',
                 // backgroundColor: "rgba(24, 21, 14, 0.5)",
@@ -74,8 +74,11 @@ window.onload = async function get_acc() {
     if (per > 0) {
         dr_fighting.innerHTML = "Comment : 축하해요 어제보다" + per + "%만큼 잘하셨어요!!ㅎㅎ";
     }
-    else {
+    else if(per < 0) {
         dr_fighting.innerHTML = "Comment : 어제보다 " + per + "%만큼 내려갔네요 ㅠㅠ 분발하셔요"
+    }
+    else {
+        dr_fighting.innerHTML = "아직 데이터가 부족합니다!! 더 많이 올려주세요!!"
     }
     //여기는 today_post리스트 점수, 자세같은거 다루는 곳 
 
@@ -200,9 +203,15 @@ async function delete_post(post_id) {
         body: JSON.stringify(delete_texts_Data)
     })
     const data = await response.json();
-    alert(data['msg'])
-    window.location.replace("/diary")
-}
-function go_to_home() {
+    if (data['result'] == "success"){
+        alert(data['msg'])
+        window.location.replace("/diary")
+    }
+    else {
+        alert("지워지지 않았습니다!!")
+    }
+    }
+    
+function go_to_home(){
     window.location.replace('/')
 }
